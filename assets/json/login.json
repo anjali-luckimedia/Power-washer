@@ -1,0 +1,18 @@
+{
+  "message": "Login Successfully",
+  "status": "success",
+  "data": [
+    {
+      "user_id": "1",
+      "name": "Anjali",
+      "surname": "Koshti",
+      "email": "anjali@gmail.com",
+      "phone": "7573831346",
+      "profile_image": "https://sinergyapp.rs/build/images/user-dummy-img.jpg",
+      "role": "1",
+      "device_token": "123",
+      "device_type": "android",
+      "token": "150|M6mdHRbScGRZHa5DHHVKhnGFVJ1fkIkZGeEOnFv505e888a2"
+    }
+  ]
+}
