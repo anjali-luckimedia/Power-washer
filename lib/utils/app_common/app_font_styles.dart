@@ -39,7 +39,7 @@ class AppFontStyles {
     );
   }
   static TextStyle headlineLarge({Color color = AppColors.kWhite}) {
-    return GoogleFonts.inter(
+    return GoogleFonts.nunito(
       color: color,
         fontWeight: FontWeight.w700,
         fontSize: 25,
@@ -54,7 +54,7 @@ class AppFontStyles {
     );
   }
   static TextStyle headlineSmall({double fontSize = 22,Color color = AppColors.kWhite,FontWeight fontWeight = FontWeight.w600  }) {
-    return GoogleFonts.inter(
+    return GoogleFonts.nunito(
         color:color,
         fontWeight: fontWeight,
         fontSize: fontSize,
@@ -63,7 +63,7 @@ class AppFontStyles {
   }
 
   static TextStyle bodyLarge({FontWeight fontWeight = FontWeight.w600 ,Color color= AppColors.kBlack}) {
-    return  GoogleFonts.inter(
+    return  GoogleFonts.nunito(
         color: color,
         fontWeight: fontWeight,
         fontSize: 16,
@@ -72,7 +72,7 @@ class AppFontStyles {
   }
   static TextStyle bodyMedium({FontWeight fontWeight = FontWeight.w600,Color color= AppColors.kBlack}
   ) {
-    return  GoogleFonts.inter(
+    return  GoogleFonts.nunito(
         color: color,
         fontWeight: fontWeight,
         fontSize: 14,
@@ -80,7 +80,7 @@ class AppFontStyles {
     );
   }
   static TextStyle bodySmall({ FontWeight fontWeight = FontWeight.w600,Color color= AppColors.kBlack}) {
-    return GoogleFonts.inter(
+    return GoogleFonts.nunito(
       color: color,
       fontWeight: fontWeight,
       fontSize: 12,
@@ -88,7 +88,7 @@ class AppFontStyles {
   }
 
   static TextStyle smallText({ FontWeight fontWeight = FontWeight.w500,Color color= AppColors.kDarkGrey}) {
-    return GoogleFonts.inter(
+    return GoogleFonts.nunito(
       color: color,
       fontWeight: fontWeight,
       fontSize: 9,
@@ -96,7 +96,7 @@ class AppFontStyles {
   }
 
   static TextStyle btnTextStyle({double fontSize = 20, Color color= AppColors.kWhite,}) {
-    return GoogleFonts.inter(
+    return GoogleFonts.nunito(
       color: color,
       fontWeight: FontWeight.w500,
       fontSize: fontSize,

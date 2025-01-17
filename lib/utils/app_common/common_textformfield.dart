@@ -17,8 +17,10 @@ class CommonTextFormField extends StatefulWidget {
   final String hintText;
   final Widget? suffixIcon;
   final Widget? prefixIcon;
+  final Color errorTextColor;
   final bool obscureText; // New parameter to obscure text for passwords
-   CommonTextFormField({Key? key,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
+  bool ? borderColor;
+   CommonTextFormField({Key? key,this.borderColor,required this.errorTextColor,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
 
   @override
   State<CommonTextFormField> createState() => _CommonTextFormFieldState();
@@ -35,11 +37,16 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       textInputAction: widget.textInputAction,
       textAlign: TextAlign.left,
       onTap: widget.onTap,
-      cursorColor: AppColors.kGreen,
+      cursorColor: AppColors.kBlack,
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,
       obscureText: widget.obscureText, // Use the obscureText property here
       decoration: InputDecoration(
+        errorStyle:AppFontStyles.headlineMedium(
+          fontWeight: FontWeight.w300,
+          fontSize: 14,
+          color: widget.errorTextColor!,
+        ) ,
         isDense:true ,
         contentPadding:  EdgeInsets.symmetric(horizontal: 18,vertical:(widget.suffixIcon == null) ? 12 : 0 ),
         hintText: widget.hintText,
@@ -58,17 +65,17 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
         fillColor: AppColors.kWhite,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.kWhite, width: 1),
+          borderSide: BorderSide(color:widget.borderColor == true?AppColors.kLightGrey: AppColors.kWhite, width: 1),
             //borderSide: BorderSide.none
             ),
         enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: AppColors.kWhite, width: 1),
+          borderSide: BorderSide(color: widget.borderColor == true?AppColors.kLightGrey: AppColors.kWhite, width: 1),
            // borderSide: BorderSide.none
             ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: widget.focusBorder == 0?AppColors.kWhite:AppColors.kWhite, width: 1),
+          borderSide: BorderSide(color: widget.borderColor == true?AppColors.kLightGrey: AppColors.kWhite, width: 1),
           //borderSide: BorderSide.none
             ),
         errorBorder: OutlineInputBorder(
@@ -78,7 +85,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       ),
       style: AppFontStyles.bodyLarge(
         fontWeight: FontWeight.w500,
-        color: AppColors.kWhite.withOpacity(.5),
+        color: AppColors.kBlack,
       ),
     );
   }

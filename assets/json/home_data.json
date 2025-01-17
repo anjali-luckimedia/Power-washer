@@ -1,0 +1,105 @@
+{
+  "message": "Home Data Shown Successfully",
+  "status": "success",
+  "data": {
+    "header": {
+      "title": "Home",
+      "location": {
+        "address": "14773 S. Heritage Crest",
+        "area": "Way Riverton, UT 84065"
+      }
+    },
+    "banner": {
+      "title": "Get special offers",
+      "subtitle": "Up to 40%",
+      "description": "All washing services available",
+      "ctaButton": {
+        "text": "BOOK NOW!",
+        "action": "book"
+      },
+      "carousel": [
+        "assets/images/bannerimg.png",
+        "assets/images/bannerimg.png",
+        "assets/images/bannerimg.png"
+      ]
+    },
+    "sections": [
+      {
+        "title": "Services",
+        "sections_items": [
+          {
+            "name": "Mobile Car Pressure Wash",
+            "icon": "assets/images/carWashing.png"
+          },
+          {
+            "name": "Residential Pressure Wash",
+            "icon": "assets/images/carWashing.png"
+          },
+          {
+            "name": "Commercial Pressure Wash",
+            "icon": "assets/images/carWashing.png"
+          }
+        ]
+      }
+    ],
+    "book_services": [
+      {
+        "title": "Most Booked Services",
+        "book_services_items": [
+          {
+            "name": "D's pressure washing and Mobile services",
+            "services_type": "Mobile Car Pressure Wash",
+            "details": {
+              "rating": 5.0,
+              "reviews": 345,
+              "year":"3 + Years",
+              "time": "1 Miles"
+            },
+            "image": "assets/images/mostBookesImage.png"
+          },
+          {
+            "name": "Monster pressure washing services",
+            "services_type":"Residential Pressure Wash" ,
+            "details": {
+              "rating": 5.0,
+              "reviews": 2345,
+              "year":"16 + Years",
+              "time": "2.5 Miles"
+            },
+            "image": "assets/images/mostBookesImage.png"
+          },
+          {
+            "name": "Joy pressure washing and Mobile services",
+            "services_type": "Commercial Pressure Wash" ,
+            "details": {
+              "rating": 5.0,
+              "reviews": 2203,
+              "year":"12 + Years",
+              "time": "3.0 Miles"
+            },
+            "image": "assets/images/mostBookesImage.png"
+          }
+        ]
+      }
+    ],
+    "thoughtful_curation": [
+      {
+        "title": "Thoughtful Curation",
+        "description": "of finest experiences",
+        "thoughtful_curation_items": [
+          {
+            "image": "curation1.jpg"
+          },
+          {
+            "image": "curation2.jpg"
+          },
+          {
+            "image": "curation3.jpg"
+          }
+        ]
+      }
+    ]
+
+
+  }
+}

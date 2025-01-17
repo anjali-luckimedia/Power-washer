@@ -13,6 +13,18 @@ class AppImages{
   static String overlayImage = 'assets/images/overlay.png';
   static String signInImage = 'assets/images/sign-in.png';
   static String signUpImage = 'assets/images/sign-up.png';
+  static String otpBgImage = 'assets/images/otpBg.png';
+  static String otpOverlayImage = 'assets/images/otpOverlay.png';
+  static String forgotBgImage = 'assets/images/forgotBg.png';
+  static String bottomHomeImage = 'assets/images/home.svg';
+  static String bottomMyRequestImage = 'assets/images/booking.svg';
+  static String bottomProfileImage = 'assets/images/profile.svg';
+  static String bottomSettingImage = 'assets/images/services.svg';
+  static String bannerOverlay = 'assets/images/banner-overlay.png';
+  static String cancel = 'assets/images/cancel.png';
 }
+
+
+
 
 

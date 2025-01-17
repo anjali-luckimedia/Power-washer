@@ -1,0 +1,76 @@
+{
+  "message": "Search Data Shown Successfully",
+  "status": "success",
+  "data": [
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "D's pressure washing and Mobile services",
+      "address": "47 W 13th St, New York, NY 10011, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "1.9 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "Mobile services and pressure washing",
+      "address": "47 W 13th St, New York, NY 10011, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "3.0 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "Jony pressure washing and Mobile services",
+      "address": "20 Cooper Square, New York, NY 10003, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "2.9 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "Stive pressure washing and Mobile services",
+      "address": "1 E 2nd St, New York, NY 10003, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "5.0 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "Nio pressure washing and Mobile services",
+      "address": "75 3rd Ave, New York, NY 10003, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "9.0 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "D's pressure washing and Mobile services",
+      "address": "47 W 13th St, New York, NY 10011, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "1.9 Miles"
+    },
+    {
+      "image": "assets/images/carWashing.png",
+      "name": "Mobile services and pressure washing",
+      "address": "47 W 13th St, New York, NY 10011, USA",
+      "services": "Mobile car pressure wash",
+      "rating": 5.0,
+      "reviews": 40,
+      "years_of_experience": "3+ Years",
+      "distance": "3.0 Miles"
+    }
+  ]
+}

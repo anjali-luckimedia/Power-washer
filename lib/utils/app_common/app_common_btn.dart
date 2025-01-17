@@ -26,7 +26,7 @@ class AppCommonBtn {
       child: Text(
         BtnText,
         style: AppFontStyles.headlineMedium(
-            fontSize: 18,
+            fontSize: 16,
             color: color,
             fontWeight: FontWeight.bold),
       ),
