@@ -60,8 +60,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
       ),
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topRight: Radius.circular(15),
-          topLeft: Radius.circular(15),
+          topRight: Radius.circular(10),
+          topLeft: Radius.circular(10),
         ),
         child: BottomNavigationBar(
           backgroundColor: AppColors.kWhite,
@@ -69,6 +69,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
           currentIndex: widget.currentIndex!,
           selectedItemColor: AppColors.kRed, // Color for selected label and icon
           unselectedItemColor: AppColors.kBlack, // Color for unselected label and icon
+          iconSize: 30, // Adjust icon size
+
           selectedLabelStyle: AppFontStyles.headlineMedium(
             color: AppColors.kRed,
             fontSize: 10,
@@ -81,11 +83,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
           ),
           showUnselectedLabels: true,
           showSelectedLabels: true,
+
           items: [
             BottomNavigationBarItem(
 
 
              icon: _buildIcon(AppImages.bottomHomeImage, 0),
+
              //icon: _buildIcon(FontAwesomeIcons.home, 0),
               label: 'HOME',
             ),
@@ -136,11 +140,13 @@ class _BottomNavigationState extends State<BottomNavigation> {
               FontAwesomeIcons.solidUserCircle,
 
               color: _isActive[index] ? AppColors.kRed : AppColors.kBlack,
-              size: 32,
+              size: 30,
 
             )
           : SvgPicture.asset(
               assetPath,
+              width: 30,
+        height: 30,
             ),
     );
   }

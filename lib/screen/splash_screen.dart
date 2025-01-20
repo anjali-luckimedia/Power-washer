@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigateScreen(){
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 8), () {
       Navigator.push(context, MaterialPageRoute(builder: (context) => SplashScreen2(),));
     });
   }

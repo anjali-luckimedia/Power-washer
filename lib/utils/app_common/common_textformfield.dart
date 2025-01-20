@@ -19,8 +19,9 @@ class CommonTextFormField extends StatefulWidget {
   final Widget? prefixIcon;
   final Color errorTextColor;
   final bool obscureText; // New parameter to obscure text for passwords
+   bool? readOnly; // New parameter to obscure text for passwords
   bool ? borderColor;
-   CommonTextFormField({Key? key,this.borderColor,required this.errorTextColor,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
+   CommonTextFormField({Key? key,this.readOnly,this.borderColor,required this.errorTextColor,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
 
   @override
   State<CommonTextFormField> createState() => _CommonTextFormFieldState();
@@ -41,6 +42,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       focusNode: widget.focusNode,
       onFieldSubmitted: widget.onFieldSubmitted,
       obscureText: widget.obscureText, // Use the obscureText property here
+      readOnly: widget.readOnly??false,
       decoration: InputDecoration(
         errorStyle:AppFontStyles.headlineMedium(
           fontWeight: FontWeight.w300,

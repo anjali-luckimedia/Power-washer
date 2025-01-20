@@ -1,0 +1,16 @@
+{
+  "message": "User Profile Data Shown Successfully",
+  "status": "success",
+  "data": [
+    {
+      "user_id": "4",
+      "user_details": {
+        "profile_image": "assets/images/dummy.png",
+        "full name": "Alexandru Achim",
+        "name": "Alexandru",
+        "email": "test@gmail.com",
+        "phone": "0000000000"
+      }
+    }
+  ]
+}

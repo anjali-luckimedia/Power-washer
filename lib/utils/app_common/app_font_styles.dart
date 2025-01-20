@@ -45,7 +45,7 @@ class AppFontStyles {
         fontSize: 25,
     );
   }
-  static TextStyle headlineMedium({Color color = AppColors.kWhite ,double fontSize = 18,FontWeight fontWeight = FontWeight.w400  }) {
+  static TextStyle headlineMedium({Color color = AppColors.kBlack ,double fontSize = 18,FontWeight fontWeight = FontWeight.w400  }) {
     return GoogleFonts.nunito(
         color: color,
       fontWeight: fontWeight,

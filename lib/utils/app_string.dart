@@ -25,6 +25,14 @@ class AppString{
    static String mostBookedServices = 'Most Booked Services';
    static String thoughtfulCuration = 'Thoughtful curation';
    static String thoughtfulCuration1 = 'of finest experiences';
+   static String filterBy = 'Filter By';
+   static String miles = 'Miles';
+   static String rating = 'Rating';
+   static String apply = 'Apply';
+   static String settings = 'Settings';
+   static String myRequest = 'My Request';
+   static String profile = 'Profile';
+   static String update = 'Update';
 }
 
 

@@ -6,6 +6,7 @@ import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
 import 'package:power_washer/blocs/home_data/home_data_event.dart';
 import 'package:power_washer/blocs/home_data/home_data_state.dart';
 import 'package:power_washer/screen/search_screen.dart';
+import 'package:power_washer/screen/service_screen.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_common/common_textformfield.dart';
@@ -82,6 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         hintText: AppString.search,
                         borderColor: true,
                         prefixIcon: Icon(Icons.search, color: AppColors.kBlack,size: 30,),
+                        readOnly : true, // Prevents the keyboard from opening
                         onTap: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(),));
                         },
@@ -269,11 +271,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           itemCount: homeData
                               .data!.sections!.first.sectionsItems!.length,
                           itemBuilder: (context, index) {
-                            final service = homeData
-                                .data!.sections!.first.sectionsItems![index];
-                            return _buildPressureWashCard(
-                              iconPath: service.icon!,
-                              title: service.name!,
+                            final service = homeData.data!.sections!.first.sectionsItems![index];
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceScreen(serviceName:service.name! ,),));
+                              },
+                              child: _buildPressureWashCard(
+                                iconPath: service.icon!,
+                                title: service.name!,
+                              ),
                             );
                           },
                         ),

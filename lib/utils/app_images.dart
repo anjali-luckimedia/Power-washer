@@ -22,7 +22,27 @@ class AppImages{
   static String bottomSettingImage = 'assets/images/services.svg';
   static String bannerOverlay = 'assets/images/banner-overlay.png';
   static String cancel = 'assets/images/cancel.png';
+  static String category = 'assets/images/category.svg';
+  static String calender = 'assets/images/calendar_clock.svg';
+  static String notification = 'assets/images/notification.svg';
+  static String changePassword = 'assets/images/changePassword.svg';
+  static String myRequest = 'assets/images/myRequest.svg';
+  static String logout = 'assets/images/logout.svg';
+  static String delete = 'assets/images/delete.svg';
+  static String yellowNotification = 'assets/images/yellowNotification.svg';
+  static String yellowChangePassword = 'assets/images/yellowChangePassword.svg';
+  static String yellowMyRequest = 'assets/images/yellowMyRequest.svg';
+  static String yellowLogout = 'assets/images/yellowLogout.svg';
+  static String yellowDelete = 'assets/images/yellowDelete.svg';
+  static String dummyImage = 'assets/images/dummy.png';
 }
+
+
+
+
+
+
+
 
 
 
