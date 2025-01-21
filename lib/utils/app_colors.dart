@@ -23,5 +23,6 @@ class AppColors {
   static const Color kDarkGrey = Color(0xff253245);
   static const Color kLightGrey = Color(0xffDADADA);
   static const Color kGrey = Color(0xffA1A1A1);
+  static const Color kStarGrey = Color(0xffD6D6D6);
 
 }

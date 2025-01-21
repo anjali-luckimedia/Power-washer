@@ -33,6 +33,14 @@ class AppString{
    static String myRequest = 'My Request';
    static String profile = 'Profile';
    static String update = 'Update';
+   static String changePassword = 'Change password';
+   static String currentPassword = 'Current password';
+   static String newPassword = 'New password';
+   static String confirmPassword = 'Confirm password';
+   static String submit = 'Submit';
+   static String request = 'Request';
+   static String reviews = 'Reviews';
+   static String addReview = 'Add Review';
 }
 
 

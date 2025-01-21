@@ -35,6 +35,8 @@ class AppImages{
   static String yellowLogout = 'assets/images/yellowLogout.svg';
   static String yellowDelete = 'assets/images/yellowDelete.svg';
   static String dummyImage = 'assets/images/dummy.png';
+  static String yearImage = 'assets/images/year.svg';
+  static String editImage = 'assets/images/edit.svg';
 }
 
 

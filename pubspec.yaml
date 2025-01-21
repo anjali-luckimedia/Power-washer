@@ -43,6 +43,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   provider:
   carousel_slider: ^5.0.0
+  custom_rating_bar: ^3.0.0
+
 
   #flutter_custom_clippers: ^2.1.0
 

@@ -4,8 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:power_washer/blocs/service/service_data_bloc.dart';
 import 'package:power_washer/blocs/service/service_data_event.dart';
+import 'package:power_washer/screen/service_details_screen.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/Bottom_navigation.dart';
+import 'package:power_washer/utils/app_common/app_common_appbar.dart';
 import 'package:power_washer/utils/app_common/app_common_btn.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_common/common_textformfield.dart';
@@ -33,11 +35,21 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return  Scaffold(
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 0),
+      appBar: CommonAppBar(
+        title: widget.serviceName!,
+        iconData: Icons.arrow_back,
+        faIcon: FaIcon(
+          FontAwesomeIcons.filter,
+          color: AppColors.kBlack,
+          size: 20,
+        ),
+        onActionTap: _modalBottomSheetMenu,
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 0),
         child: Column(
           children: [
-            SizedBox(height: 50,),
+            /* SizedBox(height: 50,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -61,7 +73,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       size: 25,
                     )),
               ],
-            ),
+            ),*/
             Divider(color: AppColors.kLightGrey,thickness: 1,),
             Expanded(
               child: BlocBuilder<ServicePageBloc, ServicePageState>(
@@ -76,115 +88,120 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         final item = state.serviceModel.data![index];
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Image Section
-                              ClipRRect(
-                              //  borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  item.image!,
-                                  height: 83,
-                                  width: 124,
-                                  fit: BoxFit.cover,
+                          child: GestureDetector(
+                            onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceDetailsScreen(),));
+                            },
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Image Section
+                                ClipRRect(
+                                //  borderRadius: BorderRadius.circular(10),
+                                  child: Image.asset(
+                                    item.image!,
+                                    height: 83,
+                                    width: 124,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(width: 10),
-                              // Details Section
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Title
-                                    Text(
-                                      item.name.toString(),
-                                      style: AppFontStyles.headlineMedium(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.kBlack
+                                SizedBox(width: 10),
+                                // Details Section
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      // Title
+                                      Text(
+                                        item.name.toString(),
+                                        style: AppFontStyles.headlineMedium(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.kBlack
+                                        ),
                                       ),
-                                    ),
-                                    SizedBox(height: 4),
-                                    // Address
-                                    Row(
-                                      children: [
-                                        FaIcon(
-                                            FontAwesomeIcons.locationArrow,
-                                            size: 14,
-                                            color: AppColors.kBlack),
-                                        SizedBox(width: 4),
-                                        Expanded(
-                                          child: Text(
-                                            item.address.toString(),
+                                      SizedBox(height: 4),
+                                      // Address
+                                      Row(
+                                        children: [
+                                          FaIcon(
+                                              FontAwesomeIcons.locationArrow,
+                                              size: 14,
+                                              color: AppColors.kBlack),
+                                          SizedBox(width: 4),
+                                          Expanded(
+                                            child: Text(
+                                              item.address.toString(),
+                                              style: AppFontStyles.headlineMedium(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.kGrey
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 4),
+                                      // Service Description
+                                      Row(
+                                        children: [
+                                         SvgPicture.asset(AppImages.category,height: 15,),
+                                          SizedBox(width: 4),
+                                          Expanded(
+                                            child: Text(
+                                              item.services.toString(),
+                                              style: AppFontStyles.headlineMedium(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.kGrey
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      SizedBox(height: 4),
+                                      // Rating and Years
+                                      Row(
+                                        children: [
+                                          Icon(Icons.star, size: 14, color: AppColors.kYellow),
+                                          Text(
+                                            ' ${item.rating} ${item.reviews}',
                                             style: AppFontStyles.headlineMedium(
-                                                fontSize: 10,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w400,
+                                                color: AppColors.kBlack
+                                            ),
+                                          ),
+                                          SizedBox(width: 10),
+                                          Text(
+                                            '${item.yearsOfExperience}',
+                                            style: AppFontStyles.headlineMedium(
+                                                fontSize: 12,
                                                 fontWeight: FontWeight.w400,
                                                 color: AppColors.kGrey
                                             ),
-                                            overflow: TextOverflow.ellipsis,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 4),
-                                    // Service Description
-                                    Row(
-                                      children: [
-                                       SvgPicture.asset(AppImages.category,height: 15,),
-                                        SizedBox(width: 4),
-                                        Expanded(
-                                          child: Text(
-                                            item.services.toString(),
-                                            style: AppFontStyles.headlineMedium(
-                                                fontSize: 10,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.kGrey
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 4),
-                                    // Rating and Years
-                                    Row(
-                                      children: [
-                                        Icon(Icons.star, size: 14, color: AppColors.kYellow),
-                                        Text(
-                                          ' ${item.rating} ${item.reviews}',
-                                          style: AppFontStyles.headlineMedium(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.kBlack
-                                          ),
-                                        ),
-                                        SizedBox(width: 10),
-                                        Text(
-                                          '${item.yearsOfExperience}',
-                                          style: AppFontStyles.headlineMedium(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w400,
-                                              color: AppColors.kGrey
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                // Distance Section
+                                Column(
+                                  children: [
+                                    Text(
+                                      item.distance.toString(),
+                                      style: AppFontStyles.headlineMedium(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                          color: AppColors.kBlack
+                                      ),
                                     ),
                                   ],
                                 ),
-                              ),
-                              // Distance Section
-                              Column(
-                                children: [
-                                  Text(
-                                    item.distance.toString(),
-                                    style: AppFontStyles.headlineMedium(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                        color: AppColors.kBlack
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         );
                         // return ListTile(

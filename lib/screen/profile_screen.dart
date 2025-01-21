@@ -5,6 +5,7 @@ import 'package:power_washer/blocs/user_profile/user_profile_event.dart';
 import 'package:power_washer/blocs/user_profile/user_profile_state.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/Bottom_navigation.dart';
+import 'package:power_washer/utils/app_common/app_common_appbar.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_images.dart';
 import 'package:power_washer/utils/app_string.dart';
@@ -32,6 +33,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return  Scaffold(
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 3),
+      appBar: CommonAppBar(
+        title: AppString.profile,
+        iconData: Icons.arrow_back,
+      ),
       body: BlocBuilder<UserProfileBLoc, UserProfileState>(
         builder: (context, state) {
           if (state is UserProfileLoading) {
@@ -47,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Column(
                 children: [
-                  SizedBox(height: 50,),
+                 /* SizedBox(height: 50,),
                   Row(
                     children: [
                       GestureDetector(
@@ -65,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: AppColors.kBlack,
                               ))),
                     ],
-                  ),
+                  ),*/
                   Divider(color: AppColors.kLightGrey,thickness: 1,),
                   SizedBox(height: 20,),
                   Stack(

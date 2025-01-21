@@ -7,6 +7,7 @@ import 'package:power_washer/blocs/my_request/my_request_data_event.dart';
 import 'package:power_washer/blocs/my_request/my_request_data_state.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/Bottom_navigation.dart';
+import 'package:power_washer/utils/app_common/app_common_appbar.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_string.dart';
 
@@ -26,11 +27,19 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
     return  Scaffold(
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 1),
+      appBar: CommonAppBar(
+        title: AppString.myRequest,
+        faIcon: FaIcon(
+          FontAwesomeIcons.solidBell,
+          color: AppColors.kBlack,
+          size: 25,
+        ),
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 0),
         child: Column(
           children: [
-            SizedBox(height: 50,),
+            /*SizedBox(height: 50,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -55,7 +64,7 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
                       size: 25,
                     )),
               ],
-            ),
+            ),*/
             Divider(color: AppColors.kLightGrey,thickness: 1,),
             Expanded(
               child: BlocBuilder<MyRequestPageBloc, MyRequestPageState>(

@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:power_washer/model/home_page_data_model.dart';
+import 'package:power_washer/model/review_model.dart';
 import 'package:power_washer/model/search_model.dart';
 import 'package:power_washer/model/service_model.dart';
 import 'package:power_washer/model/user_profile_model.dart';
 
 import '../model/my_request_model.dart';
+import '../model/service_details_model.dart';
 
 class ApiService {
   Future<HomeDataModel> fetchHomePageData() async {
@@ -23,7 +25,13 @@ class ApiService {
     print(jsonEncode(map)); // Convert the map to a JSON string for logging
     return ServiceModel.fromJson(map);
   }
-
+  Future<ServiceDetailsModel> fetchServiceDetailsData() async {
+    final response =
+    await rootBundle.loadString('assets/json/service_details.json');
+    final map = json.decode(response);
+    print(jsonEncode(map)); // Convert the map to a JSON string for logging
+    return ServiceDetailsModel.fromJson(map);
+  }
   Future<MyRequestModel> fetchMyRequestData() async {
     final response = await rootBundle.loadString('assets/json/my_request.json');
     final map = json.decode(response);
@@ -36,6 +44,13 @@ class ApiService {
     final map = json.decode(response);
     print(jsonEncode(map)); // Convert the map to a JSON string for logging
     return UserProfileModel.fromJson(map);
+  }
+  Future<ReviewModel> fetchReviewData() async {
+    final response =
+    await rootBundle.loadString('assets/json/review_data.json');
+    final map = json.decode(response);
+    print(jsonEncode(map)); // Convert the map to a JSON string for logging
+    return ReviewModel.fromJson(map);
   }
 
   Future<SearchModel> search(String query) async {

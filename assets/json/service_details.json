@@ -1,0 +1,52 @@
+{
+  "message": "Service Details Data Shown Successfully",
+  "status": "success",
+  "data": {
+    "imageSection": {
+        "image": "assets/images/car-wash.png",
+        "gallery": [
+          "assets/images/gallery.png",
+          "assets/images/gallery.png",
+          "assets/images/gallery.png",
+          "assets/images/gallery.png",
+          "assets/images/gallery.png",
+          "assets/images/gallery.png",
+          "assets/images/gallery.png"
+        ]
+      },
+    "serviceDetails": {
+        "name": "D’s pressure washing and Mobile services",
+        "distance": "1.9 Miles",
+        "location": {
+          "icon": "location_pin_icon",
+          "address": "47 W 13th St, New York, NY 10011, USA"
+        },
+        "rating": {
+          "score": 5.0,
+          "reviews": 40
+        },
+        "experience": "More than 3+ Years"
+      },
+    "description": {
+        "content": "Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      },
+    "services": [
+        {
+          "name": "Mobile Car Pressure Wash",
+          "image": "assets/images/carWashing.png",
+          "backgroundColor": "red"
+        },
+        {
+          "name": "Residential Pressure Wash",
+          "image": "assets/images/carWashing.png",
+          "backgroundColor": "white"
+        },
+        {
+          "name": "Commercial Pressure Wash",
+          "image": "assets/images/carWashing.png",
+          "backgroundColor": "white"
+        }
+      ]
+
+    }
+}

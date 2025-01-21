@@ -1,0 +1,38 @@
+{
+  "message": "Review Data Shown Successfully",
+  "status": "success",
+  "data": {
+    "reviews": [
+      {
+        "name": "Olivia",
+        "profileImage": "assets/images/dummy.png",
+        "timestamp": "Today, 9 Jan",
+        "rating": 4.5,
+        "categories": [
+          "Mobile car pressure washing & Residential"
+        ],
+        "reviewText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum..."
+      },
+      {
+        "name": "Smith",
+        "profileImage": "assets/images/dummy.png",
+        "timestamp": "1 month ago",
+        "rating": 3.5,
+        "categories": [
+          "Residential pressure washing & Mobile car"
+        ],
+        "reviewText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum..."
+      },
+      {
+        "name": "Emma",
+        "profileImage": "assets/images/dummy.png",
+        "timestamp": "3 month ago",
+        "rating": 2.5,
+        "categories": [
+          "Residential pressure washing & Mobile car"
+        ],
+        "reviewText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum..."
+      }
+    ]
+  }
+}
