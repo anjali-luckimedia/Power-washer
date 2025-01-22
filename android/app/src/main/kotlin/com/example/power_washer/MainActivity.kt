@@ -1,4 +1,4 @@
-package com.example.power_washer
+package com.got_dirt
 
 import io.flutter.embedding.android.FlutterActivity
 

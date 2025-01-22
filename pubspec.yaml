@@ -44,7 +44,7 @@ dependencies:
   provider:
   carousel_slider: ^5.0.0
   custom_rating_bar: ^3.0.0
-
+  firebase_core:
 
   #flutter_custom_clippers: ^2.1.0
 

@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:power_washer/blocs/search/search_bloc.dart';
 import 'package:power_washer/blocs/service/service_data_bloc.dart';
 import 'package:power_washer/blocs/service_details/service_details_bloc.dart';
 import 'package:power_washer/blocs/user_profile/user_profile_bloc.dart';
+import 'package:power_washer/firebase_options.dart';
 import 'package:power_washer/repositary/api_repositary.dart';
 import 'package:power_washer/screen/auth_screen/login_screen.dart';
 import 'package:power_washer/screen/auth_screen/otp_screen.dart';
@@ -14,7 +16,12 @@ import 'package:provider/provider.dart';
 import 'blocs/my_request/my_request_data_bloc.dart';
 import 'blocs/review/review_data_bloc.dart';
 
-void main() {
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   final ApiService apiService = ApiService(); // Create an instance of ApiService
 
   runApp(MultiProvider(providers: [
