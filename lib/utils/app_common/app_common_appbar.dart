@@ -15,7 +15,7 @@ class CommonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CommonAppBar({
     Key? key,
     required this.title,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor = AppColors.kWhite,
     this.iconColor = Colors.black,
     this.titleStyle,
     this.onBackTap,

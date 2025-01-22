@@ -30,6 +30,7 @@ class AppString{
    static String rating = 'Rating';
    static String apply = 'Apply';
    static String settings = 'Settings';
+   static String notification = 'Notification';
    static String myRequest = 'My Request';
    static String profile = 'Profile';
    static String update = 'Update';

@@ -25,6 +25,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+
       backgroundColor: AppColors.kWhite,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),

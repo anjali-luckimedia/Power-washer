@@ -118,7 +118,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: AppCommonBtn.kElevatedButton(onPressed: (){
                     if (_formKey.currentState!.validate()) {
                       print('first');
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
                       // Handle form submission if validation passes
                     }
                   }, btnColor: AppColors.kWhite,BtnText: AppString.verifyNow.toUpperCase(),),

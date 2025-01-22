@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:power_washer/blocs/my_request/my_request_data_bloc.dart';
 import 'package:power_washer/blocs/my_request/my_request_data_event.dart';
 import 'package:power_washer/blocs/my_request/my_request_data_state.dart';
+import 'package:power_washer/screen/notification_screen.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/Bottom_navigation.dart';
 import 'package:power_washer/utils/app_common/app_common_appbar.dart';
@@ -28,7 +29,12 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 1),
       appBar: CommonAppBar(
+        backgroundColor: AppColors.kWhite,
+
         title: AppString.myRequest,
+        onActionTap: (){
+          Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen(),));
+        },
         faIcon: FaIcon(
           FontAwesomeIcons.solidBell,
           color: AppColors.kBlack,

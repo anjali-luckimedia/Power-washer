@@ -6,6 +6,7 @@ import 'app_font_styles.dart';
 class CommonTextFormField extends StatefulWidget {
   int?focusBorder;
   int?maxLines;
+  int?maxLength;
   FocusNode ? focusNode;
   final TextEditingController controller;
   final TextInputType? keyboardType;
@@ -21,7 +22,7 @@ class CommonTextFormField extends StatefulWidget {
   final bool obscureText; // New parameter to obscure text for passwords
    bool? readOnly; // New parameter to obscure text for passwords
   bool ? borderColor;
-   CommonTextFormField({Key? key,this.readOnly,this.borderColor,required this.errorTextColor,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
+   CommonTextFormField({Key? key,this.maxLength,this.readOnly,this.borderColor,required this.errorTextColor,this.maxLines,this.focusBorder,this.focusNode, required this.controller, this.keyboardType, this.textInputAction, this.onTap, this.validator, this.onChanged, required this.hintText, this.suffixIcon, this.onFieldSubmitted, this.obscureText = false, this.prefixIcon}) : super(key: key);
 
   @override
   State<CommonTextFormField> createState() => _CommonTextFormFieldState();
@@ -31,6 +32,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: widget.maxLength,
       maxLines: widget.maxLines,
       controller: widget.controller,
       validator: widget.validator,

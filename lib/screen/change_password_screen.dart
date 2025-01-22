@@ -24,6 +24,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         backgroundColor: AppColors.kWhite,
         bottomNavigationBar: BottomNavigation(currentIndex: 2),
         appBar: CommonAppBar(
+          backgroundColor: AppColors.kWhite,
           title: AppString.changePassword,
           iconData: Icons.arrow_back,
         ),

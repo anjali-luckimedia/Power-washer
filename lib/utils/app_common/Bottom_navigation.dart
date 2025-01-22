@@ -64,6 +64,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
           topLeft: Radius.circular(10),
         ),
         child: BottomNavigationBar(
+
           backgroundColor: AppColors.kWhite,
           type: BottomNavigationBarType.fixed,
           currentIndex: widget.currentIndex!,
@@ -86,7 +87,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
           items: [
             BottomNavigationBarItem(
-
 
              icon: _buildIcon(AppImages.bottomHomeImage, 0),
 
@@ -136,18 +136,25 @@ class _BottomNavigationState extends State<BottomNavigation> {
         BlendMode.srcIn,
       ),
       child: index == 3
-          ? FaIcon(
-              FontAwesomeIcons.solidUserCircle,
+          ? Padding(
+            padding: const EdgeInsets.only(bottom: 7.0),
+            child: FaIcon(
 
-              color: _isActive[index] ? AppColors.kRed : AppColors.kBlack,
-              size: 30,
+                FontAwesomeIcons.solidUserCircle,
 
-            )
-          : SvgPicture.asset(
-              assetPath,
-              width: 30,
-        height: 30,
-            ),
+                color: _isActive[index] ? AppColors.kRed : AppColors.kBlack,
+                size: 30,
+
+              ),
+          )
+          : Padding(
+        padding: const EdgeInsets.only(bottom: 7.0),
+            child: SvgPicture.asset(
+                assetPath,
+                width: 30,
+                    height: 30,
+              ),
+          ),
     );
   }
 /*  Widget _buildIcon(IconData iconData, int index) {

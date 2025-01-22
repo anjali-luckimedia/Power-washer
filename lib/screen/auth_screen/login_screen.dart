@@ -93,9 +93,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Center(child: Image.asset(AppImages.logoImage,scale: 7.0,)),
-                    SizedBox(height: 25,),
+                    SizedBox(height: 10,),
                     Padding(
-                      padding: const EdgeInsets.only(left: 5.0,right: 7),
+                      padding: const EdgeInsets.only(left: 6.0,right: 7),
                       child: Row(
                         children: [
                           Expanded(
@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(right: 85.0,top: 15),
+                                  padding: const EdgeInsets.only(right: 90.0,top: 20),
                                   child: GestureDetector( onTap: (){
                                     setState(() {
                                       isImageExpanded = 1;
@@ -142,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 85.0,top: 15),
+                                  padding: const EdgeInsets.only(left: 90.0,top: 20),
                                   child: GestureDetector( onTap: (){
                                     setState(() {
                                       isImageExpanded = 2;
@@ -159,118 +159,144 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
                     ///sign in
-                    isImageExpanded == 1? Padding(
-                      padding: const EdgeInsets.only(left: 5,right: 7.5),
-                      child:Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Container(
-                            height: 350,
-                            decoration: BoxDecoration(
-                              color: AppColors.kRed,
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(50),
-                                bottomRight: Radius.circular(50),
+                    isImageExpanded == 1?Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Container(
+                            height: 300,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 20),
-                                  Container(
-                                    width: double.infinity,
-                                    child: CommonTextFormField(
+                              color: AppColors.kRed,
+                              margin: EdgeInsets.only(top: 0,bottom: 16,left: 6.5,right: 7.5
+                              ),
+                              //padding: const EdgeInsets.only(left: 5,right: 7.5),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(height: 20),
+                                    Container(
+                                      width: double.infinity,
+                                      child: CommonTextFormField(
 
-                                      errorTextColor: AppColors.kBlack,
-                                      controller: emailAddressController,
-                                      hintText: AppString.emailAddress,
-                                      prefixIcon: Icon(Icons.email_outlined, color: AppColors.kYellow),
-                                      validator: (value) => _validateField(value, "Email address"),
+                                        errorTextColor: AppColors.kBlack,
+                                        controller: emailAddressController,
+                                        hintText: AppString.emailAddress,
+                                        prefixIcon: Icon(Icons.email_outlined, color: AppColors.kYellow),
+                                        validator: (value) => _validateField(value, "Email address"),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 20),
-                                  Container(
-                                    width: double.infinity,
-                                    child: CommonTextFormField(
+                                    SizedBox(height: 10),
+                                    Container(
+                                      width: double.infinity,
+                                      child: CommonTextFormField(
 
-                                      errorTextColor: AppColors.kBlack,
-                                      controller: passwordController,
-                                      hintText: AppString.password,
-                                      prefixIcon: Icon(Icons.lock_outline, color: AppColors.kYellow),
-                                      suffixIcon: Icon(Icons.visibility, color: AppColors.kYellow),
-                                      validator: (value) => _validateField(value, "Password"),
+                                        errorTextColor: AppColors.kBlack,
+                                        controller: passwordController,
+                                        hintText: AppString.password,
+                                        prefixIcon: Icon(Icons.lock_outline, color: AppColors.kYellow),
+                                        suffixIcon: Icon(Icons.visibility, color: AppColors.kYellow),
+                                        validator: (value) => _validateField(value, "Password"),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(height: 15),
-                                  Row(
-                                    children: [
-                                      Spacer(),
-                                      GestureDetector(
-                                        onTap: (){
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotScreen(),));
-                                        },
-                                        child: Text(
-                                          AppString.forgotPassword,
-                                          style: AppFontStyles.headlineMedium(
-                                            fontSize: 18,
-                                            color: AppColors.kWhite,
-                                            fontWeight: FontWeight.w400,
+                                    SizedBox(height: 15),
+                                    Row(
+                                      children: [
+                                        Spacer(),
+                                        GestureDetector(
+                                          onTap: (){
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotScreen(),));
+                                          },
+                                          child: Text(
+                                            AppString.forgotPassword,
+                                            style: AppFontStyles.headlineMedium(
+                                              fontSize: 18,
+                                              color: AppColors.kWhite,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 25),
-                                  Center(
-                                    child: Text(
-                                      AppString.newMember,
-                                      style: AppFontStyles.headlineMedium(
-                                        fontSize: 18,
-                                        color: AppColors.kWhite,
-                                        fontWeight: FontWeight.w400,
+                                      ],
+                                    ),
+                                    SizedBox(height: 25),
+                                    Center(
+                                      child: Text(
+                                        AppString.newMember,
+                                        style: AppFontStyles.headlineMedium(
+                                          fontSize: 18,
+                                          color: AppColors.kWhite,
+                                          fontWeight: FontWeight.w400,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(height: 35),
-                                ],
+                                    SizedBox(height: 35),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 20, // Adjust the vertical position of the button
+                        ),
+                        Container(
+                          width: 150,
+                          height: 40,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(),
+                            color: Colors.transparent,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(1),
                             child: AppCommonBtn.kElevatedButton(
                               onPressed: () {
-                               // if (_formKey.currentState!.validate()) {
-                                 // print('first');
-                                 Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(isSelectedBooking: 0,),));
-                                  // Handle form submission if validation passes
-                             //   }
+                                // if (_formKey.currentState!.validate()) {
+                                // print('first');
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen(isSelectedBooking: 0,),));
+                                // Handle form submission if validation passes
+                                //   }
                                 // Add your button logic here
                               },
                               btnColor: AppColors.kWhite,
                               BtnText: AppString.signIn.toUpperCase(),
                             ),
                           ),
-                        ],
-                      ),
-
+                        )
+                      ],
                     ):Wrap(),
-                   ///sign up
 
-                    isImageExpanded == 2
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 5, right: 7.5),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: AppColors.kRed,
-                                  borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(50),
-                                      bottomRight: Radius.circular(50))),
+                   ///sign up
+                    isImageExpanded == 2? Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(0),
+                          child: Container(
+                            height: 435,
+                            child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(50),
+                                  bottomRight: Radius.circular(50),
+                                ),
+                              ),
+                              color: AppColors.kRed,
+                              margin: EdgeInsets.only(top: 0,bottom: 16,left: 6.5,right: 7.5
+                              ),
+                              //padding: const EdgeInsets.only(left: 5,right: 7.5),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
                                   children: [
+                                    SizedBox(height: 20),
                                     Container(
                                         width: double.infinity,
                                         child: CommonTextFormField(
@@ -285,7 +311,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           validator: (value) => _validateField(value, "Name"),
                                         )),
                                     SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Container(
                                         width: double.infinity,
@@ -301,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           validator: (value) => _validateField(value, "Email address"),
                                         )),
                                     SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Container(
                                         width: double.infinity,
@@ -321,12 +347,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                           validator: (value) => _validateField(value, "Password"),
                                         )),
                                     SizedBox(
-                                      height: 20,
+                                      height: 10,
                                     ),
                                     Container(
                                         width: double.infinity,
                                         child: CommonTextFormField(
-
+                                          maxLines: 1,
+                                          maxLength: 10,
+                                          keyboardType: TextInputType.phone,
                                           errorTextColor: AppColors.kBlack,
                                           controller: phoneNumberController,
                                           hintText: AppString.phone,
@@ -337,7 +365,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           validator: (value) => _validateField(value, "Phone Number"),
                                         )),
                                     SizedBox(
-                                      height: 15,
+                                      height: 10,
                                     ),
                                     Row(
                                       children: [
@@ -357,7 +385,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       ],
                                     ),
                                     SizedBox(
-                                      height: 25,
+                                      height: 20,
                                     ),
                                     Center(
                                       child: Text(
@@ -368,23 +396,39 @@ class _LoginScreenState extends State<LoginScreen> {
                                             fontWeight: FontWeight.w400),
                                       ),
                                     ),
-                                    const SizedBox(height: 35),
-                                    Center(
-                                      child: AppCommonBtn.kElevatedButton(onPressed: (){
-                                        if (_formKey.currentState!.validate()) {
-                                          print('first');
-                                         Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
-                                          // Handle form submission if validation passes
-                                        }
-                                      }, btnColor: AppColors.kWhite,BtnText: AppString.signUp.toUpperCase(),),
-
-                                    ),
+                                    const SizedBox(height: 25),
                                   ],
                                 ),
                               ),
                             ),
-                          )
-                        : Wrap()
+                          ),
+                        ),
+                        Container(
+                          width: 150,
+                          height: 40,
+                          decoration: ShapeDecoration(
+                            shape: RoundedRectangleBorder(),
+                            color: Colors.transparent,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(1),
+                            child: AppCommonBtn.kElevatedButton(
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  print('first');
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => OtpScreen(),));
+                                  // Handle form submission if validation passes
+                                }
+                                // Add your button logic here
+                              },
+                              btnColor: AppColors.kWhite,
+                              BtnText: AppString.signUp.toUpperCase(),
+                            ),
+                          ),
+                        )
+                      ],
+                    )  : Wrap()
+
                   ],
                 ),
               ),

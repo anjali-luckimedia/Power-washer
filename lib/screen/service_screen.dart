@@ -36,6 +36,8 @@ class _ServiceScreenState extends State<ServiceScreen> {
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 0),
       appBar: CommonAppBar(
+        backgroundColor: AppColors.kWhite,
+
         title: widget.serviceName!,
         iconData: Icons.arrow_back,
         faIcon: FaIcon(

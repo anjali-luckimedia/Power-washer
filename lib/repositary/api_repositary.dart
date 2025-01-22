@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:power_washer/model/home_page_data_model.dart';
+import 'package:power_washer/model/notification_model.dart';
 import 'package:power_washer/model/review_model.dart';
 import 'package:power_washer/model/search_model.dart';
 import 'package:power_washer/model/service_model.dart';
@@ -59,5 +60,11 @@ class ApiService {
     final map = json.decode(response);
     print(jsonEncode(map)); // Convert the map to a JSON string for logging
     return SearchModel.fromJson(map);
+  }
+  Future<NotificationModel> fetchNotification() async {
+    final response = await rootBundle.loadString('assets/json/notification.json');
+    final map = json.decode(response);
+    print(jsonEncode(map)); // Convert the map to a JSON string for logging
+    return NotificationModel.fromJson(map);
   }
 }

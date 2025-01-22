@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
 import 'package:power_washer/blocs/home_data/home_data_event.dart';
 import 'package:power_washer/blocs/home_data/home_data_state.dart';
+import 'package:power_washer/screen/notification_screen.dart';
 import 'package:power_washer/screen/search_screen.dart';
 import 'package:power_washer/screen/service_screen.dart';
 import 'package:power_washer/utils/app_colors.dart';
@@ -73,8 +74,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                            ),
                            Spacer(),
-                           FaIcon(FontAwesomeIcons.solidBell)
-                         ],
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          NotificationScreen(),
+                                    ));
+                              },
+                              child: FaIcon(FontAwesomeIcons.solidBell))
+                        ],
                        ),
                       SizedBox(height: 30,),
                       CommonTextFormField(
@@ -88,11 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(),));
                         },
                       ),
-                      SizedBox(height: 30,),
+                      SizedBox(height: 0,),
                       CarouselSlider(
 
                         options: CarouselOptions(
-                          height: 200.0,
+                          height: 180.0,
                           autoPlay: true,
                           enlargeCenterPage: true,
                           viewportFraction: 1.0,
@@ -435,7 +445,7 @@ class _HomeScreenState extends State<HomeScreen> {
             color: Colors.white, // Background color of the content area
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(vertical: 10,horizontal: 16),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -444,12 +454,12 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(width: 10),
               Center(
                 child: Container(
-                  width: 100,
+                  width: 80,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: 10,),
+                      SizedBox(height: 0,),
                       Text(
                         title,
                         style: AppFontStyles.headlineMedium(

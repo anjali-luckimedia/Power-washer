@@ -1,0 +1,35 @@
+{
+  "message": "Notification Data Shown Successfully",
+  "status": "success",
+  "data": [
+
+      {
+        "image": "assets/images/dummy.png",
+        "title": "D's pressure washing and Mobile services has been approved.",
+        "message": "Your mobile car and residential services request has been approved by owner.",
+        "date": "Today 09 Jan",
+        "time": "10:00 AM"
+      },
+      {
+        "image": "assets/images/dummy.png",
+        "title": "Monster pressure washing services has been canceled.",
+        "message": "Your residential services request has been canceled by owner.",
+        "date": "Yesterday 08 Jan",
+        "time": "07:00 AM"
+      },
+      {
+        "image": "assets/images/dummy.png",
+        "title": "Joy pressure washing and Mobile services has been successfully done.",
+        "message": "Your commercial pressure washing service has been successfully done by our team.",
+        "date": "2 months ago",
+        "time": "01:00 PM"
+      },
+      {
+        "image": "assets/images/dummy.png",
+        "title": "Stive pressure washing and Mobile services has a Christmas offer.",
+        "message": "In commercial, mobile car and residential pressure washing services has 50% off.",
+        "date": "2 months ago",
+        "time": "01:00 PM"
+      }
+  ]
+}

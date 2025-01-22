@@ -12,6 +12,7 @@ import 'package:power_washer/utils/app_string.dart';
 
 import '../utils/app_common/Bottom_navigation.dart';
 import '../utils/app_common/app_common_appbar.dart';
+import 'notification_screen.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _SettingScreenState extends State<SettingScreen> {
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 2),
       appBar: CommonAppBar(
+        backgroundColor: AppColors.kWhite,
         title: AppString.settings,
         iconData: Icons.arrow_back,
       ),
@@ -58,55 +60,71 @@ class _SettingScreenState extends State<SettingScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap:(){
-                    setState(() {
-                      selectedIndex = 1;
-                    });
-                  },
-                  child: _buildCard(
-                    image: selectedIndex == 1?AppImages.yellowNotification:AppImages.notification, label: 'NOTIFICATION',index: 1
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 1;
+                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()))
+                          .whenComplete(() => selectedIndex = 0);
+                    },
+                    child: _buildCard(
+                      image: selectedIndex == 1 ? AppImages.yellowNotification : AppImages.notification,
+                      label: 'NOTIFICATION',
+                      index: 1,
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap:(){
-                    setState(() {
-                      selectedIndex = 2;
-                    });
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen(),)).whenComplete(() =>   selectedIndex = 0,);
-
-                  
-                  },
-                  child: _buildCard(
-                    image:selectedIndex == 2?AppImages.yellowChangePassword:AppImages.changePassword, label: 'CHANGE PASSWORD',index: 2
+                const SizedBox(width: 10), // Space between cards
+                Flexible(
+                  child: GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = 2;
+                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()))
+                          .whenComplete(() => selectedIndex = 0);
+                    },
+                    child: _buildCard(
+                      image: selectedIndex == 2 ? AppImages.yellowChangePassword : AppImages.changePassword,
+                      label: 'CHANGE PASSWORD',
+                      index: 2,
+                    ),
                   ),
                 ),
               ],
             ),
+
             SizedBox(height: 20,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GestureDetector(
-                  onTap:(){
-                    setState(() {
-                      selectedIndex = 3;
-                    });
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(),));
-
-                  },
-                  child: _buildCard(
-                    image: selectedIndex == 3?AppImages.yellowMyRequest:AppImages.myRequest, label: 'MY REQUEST',index: 3
+                Flexible(
+                  child: GestureDetector(
+                    onTap:(){
+                      setState(() {
+                        selectedIndex = 3;
+                      });
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(),));
+                  
+                    },
+                    child: _buildCard(
+                      image: selectedIndex == 3?AppImages.yellowMyRequest:AppImages.myRequest, label: 'MY REQUEST',index: 3
+                    ),
                   ),
                 ),
-                GestureDetector(
-                  onTap:(){
-                    setState(() {
-                      selectedIndex = 4;
-                    });
-                  },
-                  child: _buildCard(
-                    image:selectedIndex == 4?AppImages.yellowLogout:AppImages.logout, label: 'LOGOUT',index: 4
+                const SizedBox(width: 10), // Space between cards
+                Flexible(
+                  child: GestureDetector(
+                    onTap:(){
+                      setState(() {
+                        selectedIndex = 4;
+                      });
+                    },
+                    child: _buildCard(
+                      image:selectedIndex == 4?AppImages.yellowLogout:AppImages.logout, label: 'LOGOUT',index: 4
+                    ),
                   ),
                 ),
               ],
@@ -138,13 +156,13 @@ class _SettingScreenState extends State<SettingScreen> {
     );
   }
 
-  Widget _buildCard({
+ /* Widget _buildCard({
     required String image,
     required String label,
     required int index
   }) {
     return Container(
-      width: 180,
+      width: 140,
       height: 120,
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -156,7 +174,7 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       padding: EdgeInsets.all(2), // Adding padding for the border effect
       child: Container(
-        width: 180,
+        width: 140,
         height: 120,
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -184,6 +202,60 @@ class _SettingScreenState extends State<SettingScreen> {
                   fontWeight: FontWeight.w800,
                   fontSize: 14,
                   color: selectedIndex == index? AppColors.kWhite:AppColors.kBlack,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }*/
+  Widget _buildCard({
+    required String image,
+    required String label,
+    required int index,
+  }) {
+    double cardWidth = MediaQuery.of(context).size.width * 0.45; // 40% of screen width
+    double cardHeight = MediaQuery.of(context).size.height * 0.15; // 15% of screen height
+
+    return Container(
+      width: cardWidth,
+      height: cardHeight,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [AppColors.kRed, AppColors.kRed1],
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      padding: const EdgeInsets.all(2),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              selectedIndex == index ? AppColors.kRed : AppColors.kWhite,
+              selectedIndex == index ? AppColors.kRed1 : AppColors.kWhite,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(child: SvgPicture.asset(image)),
+            const SizedBox(height: 10),
+            Center(
+              child: Text(
+                label,
+                style: AppFontStyles.headlineMedium(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 14,
+                  color: selectedIndex == index ? AppColors.kWhite : AppColors.kBlack,
                 ),
                 textAlign: TextAlign.center,
               ),

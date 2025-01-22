@@ -47,7 +47,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             final serviceData = state.serviceDetailsModel;
             return Stack(
               children: [
-              Column(
+            SingleChildScrollView(
+            child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -251,7 +252,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                       child: Text('Services',style: AppFontStyles.headlineMedium(fontWeight: FontWeight.bold,fontSize: 16),),
                     ),
                     SizedBox(
-                      height: 125, // Adjust the height of the row as needed
+                      height: 110, // Adjust the height of the row as needed
 
                       child: ListView.builder(
                         padding: EdgeInsets.zero,
@@ -333,8 +334,11 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                         ),
                       ),
                     ),
+                    SizedBox(
+                      height: 15,
+                    ),
                   ],
-                ),
+                ),),
                 isGalleryShow ? SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 0.0),
@@ -478,7 +482,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 5),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -612,7 +616,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
         return StatefulBuilder(
           builder: (context, setState) {
             return Container(
-              height: 500.0,
+              height: 450.0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -736,19 +740,20 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
-
                                             children: [
                                               Text(
                                                 review.name.toString(),
-                                                style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w400,fontSize: 16),
+                                                style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w400, fontSize: 16),
                                               ),
-                                              SizedBox(width: 200,),
+                                              Spacer(), // Pushes the next widget to the end
                                               Text(
                                                 review.timestamp.toString(),
-                                                style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w600,fontSize: 12,color: AppColors.kLightGrey),
+                                                textAlign: TextAlign.end,
+                                                style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w600, fontSize: 12, color: AppColors.kLightGrey),
                                               ),
                                             ],
                                           ),
+
                                           SizedBox(height: 8,),
                                           Row(
                                             children: [

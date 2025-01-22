@@ -39,7 +39,7 @@ class _ForgotScreenState extends State<ForgotScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 50,),
+                SizedBox(height: 25,),
                 IconButton(onPressed: (){
                   Navigator.pop(context);
                 }, icon: Icon(Icons.arrow_back,color: AppColors.kWhite,))
@@ -52,7 +52,12 @@ class _ForgotScreenState extends State<ForgotScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Align(alignment:Alignment.centerLeft,child: Text(AppString.forgotYourPassword,style: AppFontStyles.dinTextStyle(fontSize: 30),)),
-                  Text(AppString.forgotYourPasswordDetails,style: AppFontStyles.headlineMedium(fontSize: 16,fontWeight: FontWeight.w400),),
+                  Text(
+                    AppString.forgotYourPasswordDetails,
+                    style: AppFontStyles.headlineMedium(
+                        color: AppColors.kWhite,
+                        fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
                   SizedBox(height: 30,),
                   Container(
                     width: double.infinity,

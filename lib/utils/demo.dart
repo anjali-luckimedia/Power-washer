@@ -16,14 +16,13 @@ class _SplashScreen2State extends State<SplashScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.kBlack,
       body: Stack(
         children: [
-          // Background Images Row
+          // Background Images
           Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Left Column
               Expanded(
                 flex: 1,
                 child: Column(
@@ -41,8 +40,7 @@ class _SplashScreen2State extends State<SplashScreen2> {
                   ],
                 ),
               ),
-              const SizedBox(width: 20),
-              // Right Column
+              SizedBox(width: 20,),
               Expanded(
                 flex: 1,
                 child: Image.asset(
@@ -52,23 +50,20 @@ class _SplashScreen2State extends State<SplashScreen2> {
               ),
             ],
           ),
-          // Overlay Background
-          Container(width:double.infinity,child: Image.asset(AppImages.bgImage,fit: BoxFit.cover,)),
 
+          Container(width:double.infinity,child: Image.asset(AppImages.bgImage,fit: BoxFit.cover,)),
           // Foreground Gradient and Text
           Positioned.fill(
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: Stack(
+              child:  Stack(
                 children: [
-                  // Bottom Vector Image
                   Image.asset(
                     AppImages.splashVectorImage,
                     fit: BoxFit.cover,
                   ),
-                  // Welcome Text
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.only(top: 0,right: 20,left: 20),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,17 +93,13 @@ class _SplashScreen2State extends State<SplashScreen2> {
                               fontWeight: FontWeight.w300
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 60),
                         Align(
                           alignment: Alignment.bottomRight,
                           child: IconButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => LoginScreen(), // Replace with your login screen
-                                ),
-                              );
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                              // Add your navigation logic here
                             },
                             icon: Icon(
                               Icons.arrow_forward,
@@ -123,10 +114,11 @@ class _SplashScreen2State extends State<SplashScreen2> {
               ),
             ),
           ),
+
+
+
         ],
       ),
     );
   }
 }
-
-
