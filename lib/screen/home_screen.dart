@@ -15,6 +15,7 @@ import 'package:power_washer/utils/app_images.dart';
 import 'package:power_washer/utils/app_string.dart';
 
 import '../utils/app_common/Bottom_navigation.dart';
+import '../utils/app_common/app_common_horizontal_video.dart';
 
 class HomeScreen extends StatefulWidget {
   int isSelectedBooking ;
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => SearchScreen(),));
                         },
                       ),
-                      SizedBox(height: 0,),
+                      SizedBox(height: 15,),
                       CarouselSlider(
 
                         options: CarouselOptions(
@@ -156,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: 45,),
+                                        SizedBox(height: 30,),
                                         Align(
                                           alignment: Alignment.bottomLeft,
                                           child: Text(
@@ -407,7 +408,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontSize: 18,
                             color: AppColors.kBlack),
                       ),
-
+                      SizedBox(height: 10,),
+                      Container(height:225,child: HorizontalVideoList()),
+                      SizedBox(height: 10,),
             ],
                   ),
                 ),

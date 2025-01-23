@@ -1,123 +1,126 @@
+/*
 import 'package:flutter/material.dart';
-import 'package:power_washer/screen/auth_screen/login_screen.dart';
-import 'package:power_washer/utils/app_colors.dart';
-import 'package:power_washer/utils/app_common/app_font_styles.dart';
-import 'package:power_washer/utils/app_images.dart';
-import 'package:power_washer/utils/app_string.dart';
+import 'package:multi_video_player/multi_video_player.dart';
 
-class SplashScreen2 extends StatefulWidget {
-  const SplashScreen2({Key? key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+
+  final String title;
 
   @override
-  State<SplashScreen2> createState() => _SplashScreen2State();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _SplashScreen2State extends State<SplashScreen2> {
+class _MyHomePageState extends State<MyHomePage> {
+  // Ensure the list is of type List<String>
+  List<dynamic> videos = [
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.kBlack,
-      body: Stack(
-        children: [
-          // Background Images
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    Image.asset(
-                      AppImages.splash3Image,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 10,),
-                    Image.asset(
-                      AppImages.splash2Image,
-                      //height: 530,
-                      fit: BoxFit.cover,
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 20,),
-              Expanded(
-                flex: 1,
-                child: Image.asset(
-                  AppImages.splash4Image,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: videos.length,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: const EdgeInsets.all(5.0),
+            child: Container(
 
-          Container(width:double.infinity,child: Image.asset(AppImages.bgImage,fit: BoxFit.cover,)),
-          // Foreground Gradient and Text
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child:  Stack(
-                children: [
-                  Image.asset(
-                    AppImages.splashVectorImage,
-                    fit: BoxFit.cover,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 0,right: 20,left: 20),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 110),
-                        Text(
-                          AppString.welcome,
-                          style: AppFontStyles.headlineMedium(
-                              color: AppColors.kWhite,
-                              fontSize: 30,
-                              fontWeight: FontWeight.w300
-                          ),
-                        ),
-                        Text(
-                          AppString.gotDirt,
-                          style: AppFontStyles.headlineMedium(
-                              color: AppColors.kWhite,
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold
-                          ),
-                        ),
-                        Text(
-                          AppString.findWashing,
-                          style: AppFontStyles.headlineMedium(
-                              color: AppColors.kWhite,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w300
-                          ),
-                        ),
-                        const SizedBox(height: 60),
-                        Align(
-                          alignment: Alignment.bottomRight,
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
-                              // Add your navigation logic here
-                            },
-                            icon: Icon(
-                              Icons.arrow_forward,
-                              color: AppColors.kYellow,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              height: 100, // Set a fixed height for each video widget
+              child: MultiVideoPlayer.network(
+                videoSourceList: [videos[index]],
+                height: 300,
+                width: double.infinity,
+                preloadPagesCount: videos.length,
+                onPageChanged: (videoPlayerController, index) {
+                  // Ensure the widget is mounted before calling setState
+                  if (mounted) {
+                    setState(() {});
+                  }
+                },
+                getCurrentVideoController: (videoPlayerController) {},
               ),
             ),
-          ),
+          );
+        },
+      ),
+    );
+  }
+}
+*/
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
 
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
 
+  final String title;
 
-        ],
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  List<String> videos = [
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+  ];
+
+  List<VideoPlayerController> _controllers = [];
+  VideoPlayerController? controller;
+  @override
+  void initState() {
+    super.initState();
+
+    // Initialize controllers for each video
+    for (String videoUrl in videos) {
+       controller = VideoPlayerController.network(videoUrl)
+        ..initialize().then((_) {
+          setState(() {}); // Update UI after initialization
+          controller!.play(); // Start playing the video
+          controller!.setLooping(true); // Set looping if required
+        });
+      _controllers.add(controller!);
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose all controllers
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: ListView.builder(
+        scrollDirection: Axis.vertical,
+        itemCount: _controllers.length,
+        itemBuilder: (context, index) {
+          final controller = _controllers[index];
+          return Container(
+            margin: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 200, // Set a fixed height for each video
+              child: controller.value.isInitialized
+                  ? AspectRatio(
+                aspectRatio: controller.value.aspectRatio,
+                child: VideoPlayer(controller),
+              )
+                  : const Center(child: CircularProgressIndicator()), // Show loading while initializing
+            ),
+          );
+        },
       ),
     );
   }

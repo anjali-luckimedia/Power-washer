@@ -8,7 +8,9 @@ import 'package:power_washer/utils/app_string.dart';
 import '../../utils/app_common/app_common_btn.dart';
 
 class OtpScreen extends StatefulWidget {
-  const OtpScreen({Key? key}) : super(key: key);
+  String? otp;
+  String userId;
+   OtpScreen({Key? key,this.otp,required this.userId}) : super(key: key);
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -33,6 +35,12 @@ class _OtpScreenState extends State<OtpScreen> {
     selectedColor: AppColors.kWhite, // Change selected to green
   );
 
+  @override
+  void initState() {
+    print(widget.otp);
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return  Scaffold(

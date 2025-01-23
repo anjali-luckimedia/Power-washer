@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
+import 'package:power_washer/blocs/login/login_bloc.dart';
 import 'package:power_washer/blocs/notification/notification_bloc.dart';
 import 'package:power_washer/blocs/search/search_bloc.dart';
 import 'package:power_washer/blocs/service/service_data_bloc.dart';
@@ -16,11 +17,14 @@ import 'package:power_washer/screen/auth_screen/otp_screen.dart';
 import 'package:power_washer/screen/home_screen.dart';
 import 'package:power_washer/screen/notification_screen.dart';
 import 'package:power_washer/screen/splash_screen.dart';
+import 'package:power_washer/utils/demo.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'blocs/forgot_password/forgot_password_bloc.dart';
 import 'blocs/my_request/my_request_data_bloc.dart';
 import 'blocs/review/review_data_bloc.dart';
+import 'blocs/sign_up/sign_up_bloc.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -34,6 +38,15 @@ Future<void> main() async {
   final ApiService apiService = ApiService(); // Create an instance of ApiService
 
   runApp(MultiProvider(providers: [
+    BlocProvider(
+      create: (context) => SignUpBloc(),
+    ),
+    BlocProvider(
+      create: (context) => LoginBloc(),
+    ),
+    BlocProvider(
+      create: (context) => ForgotPasswordBloc(),
+    ),
     BlocProvider(
       create: (context) => HomePageBloc(apiService),
     ),

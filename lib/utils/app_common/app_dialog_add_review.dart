@@ -16,7 +16,7 @@ class AddReviewDialog extends StatefulWidget {
 }
 
 class _AddReviewDialogState extends State<AddReviewDialog> {
-  int selectedIndex = -1;
+  Set<int> selectedIndex = {}; // Set to store multiple selected indices
 
   List<String> serviceList =['Mobile Car','Residential','Commercial'];
   List<String> serviceListImage =['assets/images/carWashing.png','assets/images/carWashing.png','assets/images/carWashing.png'];
@@ -166,19 +166,25 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                         return GestureDetector(
                           onTap: (){
                             setState(() {
-                              if(index == 0){
-                                setState(() {
-                                  selectedIndex = 0;
-                                });
-                              }else if(index == 1){
-                                setState(() {
-                                  selectedIndex = 1;
-                                });
-                              }else if(index == 2){
-                                setState(() {
-                                  selectedIndex = 2;
-                                });
+
+                              if (selectedIndex.contains(index)) {
+                                selectedIndex.remove(index); // Deselect
+                              } else {
+                                selectedIndex.add(index); // Select
                               }
+                              // if(index == 0){
+                              //   setState(() {
+                              //     selectedIndex = 0;
+                              //   });
+                              // }else if(index == 1){
+                              //   setState(() {
+                              //     selectedIndex = 1;
+                              //   });
+                              // }else if(index == 2){
+                              //   setState(() {
+                              //     selectedIndex = 2;
+                              //   });
+                              // }
 
                             });
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceScreen(serviceName:service.name! ,),));
@@ -186,7 +192,8 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                           child: _buildPressureWashCard(
                               iconPath: serviceListImage[index],
                               title: service,
-                              index: index
+                              index: index,
+                            isSelected: selectedIndex.contains(index)
                           ),
                         );
                       },
@@ -312,7 +319,8 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
   Widget _buildPressureWashCard({
     required String iconPath,
     required String title,
-    required int index
+    required int index,
+    required bool isSelected,
   }) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
@@ -333,8 +341,8 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                selectedIndex == index? AppColors.kRed:AppColors.kWhite,
-                selectedIndex == index? AppColors.kRed1:AppColors.kWhite,
+                isSelected? AppColors.kRed:AppColors.kWhite,
+                isSelected? AppColors.kRed1:AppColors.kWhite,
               ], // Define your gradient colors here
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -354,7 +362,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                 style: AppFontStyles.headlineMedium(
                   fontWeight: FontWeight.w800,
                   fontSize: 8,
-                  color:  selectedIndex == index?AppColors.kWhite:AppColors.kBlack,
+                  color:  isSelected?AppColors.kWhite:AppColors.kBlack,
                 ),
                 maxLines: 2,
               ),

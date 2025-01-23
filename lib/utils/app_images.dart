@@ -11,8 +11,8 @@ class AppImages{
   static String splashVectorImage = 'assets/images/Vector.png';
   static String loginImage = 'assets/images/login.png';
   static String overlayImage = 'assets/images/overlay.png';
-  static String signInImage = 'assets/images/sign-in.png';
-  static String signUpImage = 'assets/images/sign-up.png';
+  // static String signInImage = 'assets/images/sign-in.png';
+  // static String signUpImage = 'assets/images/sign-up.png';
   static String otpBgImage = 'assets/images/otpBg.png';
   static String otpOverlayImage = 'assets/images/otpOverlay.png';
   static String forgotBgImage = 'assets/images/forgotBg.png';

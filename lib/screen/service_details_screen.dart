@@ -30,7 +30,9 @@ class ServiceDetailsScreen extends StatefulWidget {
 
 class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
 
-  int selectedIndex = -1;
+  //int selectedIndex = -1;
+  Set<int> selectedIndex = {}; // Set to store multiple selected indices
+
   bool isGalleryShow = false;
 
   @override
@@ -219,15 +221,21 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             onTap: (){
                               _viewAll(serviceData);
                             },
-                            child: Text(
-                              'View all',
-                              style: GoogleFonts.nunito(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                decoration: TextDecoration.underline,
-                                  decorationThickness: 4,
-                                  color: AppColors.kBlack
-                              ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  'View all',
+                                  style: GoogleFonts.nunito(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 12,
+                                    // decoration: TextDecoration.underline,
+                                    //   decorationThickness: 4,
+                                    //   color: AppColors.kBlack
+                                  ),
+                                ),
+                                //SizedBox(height: 1,),
+                                Container(height: 1,width: 50,color: AppColors.kBlack,)
+                              ],
                             ),
                           ),
                           SizedBox(width: 20,),
@@ -263,19 +271,26 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                           return GestureDetector(
                             onTap: (){
                               setState(() {
-                                if(index == 0){
-                                  setState(() {
-                                    selectedIndex = 0;
-                                  });
-                                }else if(index == 1){
-                                  setState(() {
-                                    selectedIndex = 1;
-                                  });
-                                }else if(index == 2){
-                                  setState(() {
-                                    selectedIndex = 2;
-                                  });
-                                }
+
+                                  if (selectedIndex.contains(index)) {
+                                    selectedIndex.remove(index); // Deselect
+                                  } else {
+                                    selectedIndex.add(index); // Select
+                                  }
+
+                                // if(index == 0){
+                                //   setState(() {
+                                //     selectedIndex = 0;
+                                //   });
+                                // }else if(index == 1){
+                                //   setState(() {
+                                //     selectedIndex = 1;
+                                //   });
+                                // }else if(index == 2){
+                                //   setState(() {
+                                //     selectedIndex = 2;
+                                //   });
+                                // }
 
                               });
                              // Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceScreen(serviceName:service.name! ,),));
@@ -283,7 +298,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                             child: _buildPressureWashCard(
                               iconPath: service.image!,
                               title: service.name!,
-                              index: index
+                              index: index,
+                              isSelected: selectedIndex.contains(index)
                             ),
                           );
                         },
@@ -453,7 +469,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
   Widget _buildPressureWashCard({
     required String iconPath,
     required String title,
-    required int index
+    required int index,
+    required bool isSelected,
   }) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),
@@ -474,8 +491,8 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                selectedIndex == index? AppColors.kRed:AppColors.kWhite,
-                selectedIndex == index? AppColors.kRed1:AppColors.kWhite,
+                isSelected? AppColors.kRed:AppColors.kWhite,
+                isSelected? AppColors.kRed1:AppColors.kWhite,
               ], // Define your gradient colors here
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -498,7 +515,7 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                   style: AppFontStyles.headlineMedium(
                     fontWeight: FontWeight.w800,
                     fontSize: 10,
-                    color:  selectedIndex == index?AppColors.kWhite:AppColors.kBlack,
+                    color:  isSelected?AppColors.kWhite:AppColors.kBlack,
                   ),
                   maxLines: 2,
                 ),
@@ -663,15 +680,22 @@ class _ServiceDetailsScreenState extends State<ServiceDetailsScreen> {
                               builder: (context) => AddReviewDialog(serviceDetailsModel: serviceDetails,),
                             );
                           },
-                          child: Text(
-                            'Add Review',
-                            style: GoogleFonts.nunito(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 4,
-                              color: AppColors.kBlack,
-                            ),
+                          child: Column(
+                            children: [
+                              Text(
+                                'Add Review',
+                                style: GoogleFonts.nunito(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  // decoration: TextDecoration.underline,
+                                  // decorationThickness: 4,
+                                  // color: AppColors.kBlack,
+                                ),
+                              ),
+
+                              //SizedBox(height: 1,),
+                              Container(height: 1,width: 95,color: AppColors.kBlack,),
+                            ],
                           ),
                         ),
                       ),

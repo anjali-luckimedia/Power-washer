@@ -42,6 +42,38 @@ class AppString{
    static String request = 'Request';
    static String reviews = 'Reviews';
    static String addReview = 'Add Review';
+
+
+   //API status
+   static const String kSuccess = 'success';
+   static const String kFail = 'fail';
+   static const String kUnauthorised = 'Unauthorised';
+
+
+
+   //API
+   static const String kBaseUrl = 'https://app.gotdirt.com/api/';
+
+
+   //Prefkeys
+   static const String kPrefDeviceToken = 'device_token';
+   static const String kPrefDeviceType = 'device_type';
+   static const String kPrefToken = 'token';
+
+   static const String kPrefUserIdKey = 'user_id';
+   static const String kPrefOtpKey = 'otp';
+
+   static const String kProfileImage = 'profile_image';
+   static const String kIsLoggedIn = 'IsLoggedIn';
+
+   static const String kName = 'name';
+   static const String kPEmail = 'email';
+   static const String kPSurName = 'surname';
+   static const String kPPhoneNo = 'phone_number';
+   static const String kPAddress = 'address';
+   static const String kPDob = 'dob';
+   static const String kPGender = 'gender';
+   static const String kPPassport = 'passport';
 }
 
 
