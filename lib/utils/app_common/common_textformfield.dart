@@ -46,6 +46,7 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
       obscureText: widget.obscureText, // Use the obscureText property here
       readOnly: widget.readOnly??false,
       decoration: InputDecoration(
+        counterText: "",
         errorStyle:AppFontStyles.headlineMedium(
           fontWeight: FontWeight.w300,
           fontSize: 14,

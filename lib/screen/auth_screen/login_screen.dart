@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) =>  OtpScreen(otp: otp.toString(),userId: userId.toString(),)));
+                        builder: (context) =>  OtpScreen(otp: otp.toString(),)));
                 // Navigator.pushReplacementNamed(context, '/homeScreen');
 
 
@@ -593,7 +593,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Navigator.pushReplacement(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) =>  OtpScreen(otp: otp.toString(),userId: userId.toString(),)));
+                                              builder: (context) =>  OtpScreen(otp: otp.toString(),)));
                                       // Navigator.pushReplacementNamed(context, '/homeScreen');
 
                                   } else if (state is SignUpFailure) {

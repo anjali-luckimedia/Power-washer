@@ -3,6 +3,8 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:power_washer/blocs/change_password/change_password_bloc.dart';
+import 'package:power_washer/blocs/delete_account/delete_account_bloc.dart';
 import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
 import 'package:power_washer/blocs/login/login_bloc.dart';
 import 'package:power_washer/blocs/notification/notification_bloc.dart';
@@ -10,6 +12,7 @@ import 'package:power_washer/blocs/search/search_bloc.dart';
 import 'package:power_washer/blocs/service/service_data_bloc.dart';
 import 'package:power_washer/blocs/service_details/service_details_bloc.dart';
 import 'package:power_washer/blocs/user_profile/user_profile_bloc.dart';
+import 'package:power_washer/blocs/verify_otp/verify_otp_bloc.dart';
 import 'package:power_washer/firebase_options.dart';
 import 'package:power_washer/repositary/api_repositary.dart';
 import 'package:power_washer/screen/auth_screen/login_screen.dart';
@@ -22,9 +25,12 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'blocs/forgot_password/forgot_password_bloc.dart';
+import 'blocs/logout/logout_bloc.dart';
 import 'blocs/my_request/my_request_data_bloc.dart';
+import 'blocs/resend_otp/resend_otp_bloc.dart';
 import 'blocs/review/review_data_bloc.dart';
 import 'blocs/sign_up/sign_up_bloc.dart';
+import 'blocs/user_edit_profile/user_edit_profile_bloc.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -46,6 +52,24 @@ Future<void> main() async {
     ),
     BlocProvider(
       create: (context) => ForgotPasswordBloc(),
+    ),
+    BlocProvider(
+      create: (context) => VerifyOtpBloc(),
+    ),
+    BlocProvider(
+        create: (context) => LogoutBloc()
+    ),
+    BlocProvider(
+        create: (context) => ResendOtpBloc()
+    ),
+    BlocProvider(
+        create: (context) => DeleteAccountBloc()
+    ),
+    BlocProvider(
+        create: (context) => ChangePasswordBloc(apiRepository: apiService)
+    ),
+    BlocProvider(
+        create: (context) => UserEditProfileBloc()
     ),
     BlocProvider(
       create: (context) => HomePageBloc(apiService),

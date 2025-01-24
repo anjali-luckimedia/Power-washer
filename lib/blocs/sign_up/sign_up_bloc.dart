@@ -46,6 +46,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
         final data = _responseData["data"];
         preferences.setString(AppString.kPrefOtpKey, data['otp'].toString());
         preferences.setString(AppString.kPrefUserIdKey, data['user_id'].toString());
+        preferences.setString(AppString.kPrefDeviceToken, data['device_token'].toString());
+        preferences.setString(AppString.kPrefDeviceType, data['device_type'].toString());
         print(_responseData['message']);
         print(data['otp']);
         print(data['user_id']);
