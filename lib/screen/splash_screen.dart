@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:power_washer/screen/home_screen.dart';
 import 'package:power_washer/screen/splash_screen_2.dart';
 import 'package:power_washer/utils/app_colors.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_images.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:location/location.dart';
-
 import '../utils/app_string.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,10 +16,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-
   late SharedPreferences prefs;
   bool isLoggedIn = false;
-  String role = '';
 
   @override
   void initState() {
@@ -30,61 +27,69 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void initPreference() async {
     prefs = await SharedPreferences.getInstance();
-    getLoggedInState();
-    await requestLocationPermission();
+    await getLoggedInState();
+    navigateToScreen();
+    await determinePosition();
+
   }
 
-  // Get the logged-in state from SharedPreferences
-  getLoggedInState() async {
+  Future<void> getLoggedInState() async {
     isLoggedIn = prefs.getBool(AppString.kIsLoggedIn) ?? false;
-    setState(() {
-      isLoggedIn = isLoggedIn;
-    });
-    navigateToScreen();
+    setState(() {});
     print('isLoggedIn: $isLoggedIn'); // Debug statement
   }
 
-  // Request location permission and save location
-  Future<void> requestLocationPermission() async {
-    Location location = Location();
+  Future<void> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
-    // Check if the location service is enabled
-    bool serviceEnabled = await location.serviceEnabled();
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        // Handle location service not enabled
+      // Location services are not enabled; don't continue
+      // accessing the position and request users to enable the location services.
+      print('Location services are disabled.');
+      return;
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        // Permissions are denied; next time you could try
+        // requesting permissions again (this is also where
+        // Android's shouldShowRequestPermissionRationale
+        // returned true. According to Android guidelines,
+        // your App should show an explanatory UI now.
+        print('Location permissions are denied');
         return;
       }
     }
 
-    // Check and request permission
-    PermissionStatus permissionStatus = await location.hasPermission();
-    if (permissionStatus == PermissionStatus.denied) {
-      permissionStatus = await location.requestPermission();
-      if (permissionStatus != PermissionStatus.granted) {
-        // Handle permission not granted
-        return;
-      }
+    if (permission == LocationPermission.deniedForever) {
+      // Permissions are denied forever; handle appropriately.
+      print(
+          'Location permissions are permanently denied, we cannot request permissions.');
+      return;
     }
 
-    // Get current location
-    LocationData currentLocation = await location.getLocation();
+    // When we reach here, permissions are granted, and we can
+    // continue accessing the position of the device.
+    Position position = await Geolocator.getCurrentPosition();
+    print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
 
-    // Save the latitude and longitude in SharedPreferences
-    prefs.setDouble('latitude', currentLocation.latitude ?? 0.0);
-    prefs.setDouble('longitude', currentLocation.longitude ?? 0.0);
-
-    print('Latitude: ${currentLocation.latitude}, Longitude: ${currentLocation.longitude}');
+    // Save the latitude and longitude to SharedPreferences
+    await prefs.setDouble('latitude', position.latitude);
+    await prefs.setDouble('longitude', position.longitude);
   }
 
-  // Navigate to the appropriate screen based on the login status
   void navigateToScreen() {
     Future.delayed(Duration(seconds: 3), () {
       if (isLoggedIn) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen(isSelectedBooking: 0)),
+          MaterialPageRoute(
+              builder: (context) => HomeScreen(isSelectedBooking: 0)),
         );
       } else {
         Navigator.pushReplacement(
@@ -101,14 +106,30 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          Container(width: double.infinity, child: Image.asset(AppImages.splashImage, fit: BoxFit.cover)),
-          Container(width: double.infinity, child: Image.asset(AppImages.bgImage, fit: BoxFit.cover)),
+          Container(
+              width: double.infinity,
+              child: Image.asset(
+                AppImages.splashImage,
+                fit: BoxFit.cover,
+              )),
+          Container(
+              width: double.infinity,
+              child: Image.asset(
+                AppImages.bgImage,
+                fit: BoxFit.cover,
+              )),
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Image.asset(AppImages.logoImage, scale: 6.0),
-              Image.asset(AppImages.gotDirtImage, scale: 6.0),
+              Image.asset(
+                AppImages.logoImage,
+                scale: 6.0,
+              ),
+              Image.asset(
+                AppImages.gotDirtImage,
+                scale: 6.0,
+              ),
             ],
           ),
           Positioned(
@@ -117,15 +138,17 @@ class _SplashScreenState extends State<SplashScreen> {
             right: 0,
             child: Column(
               children: [
-                Image.asset(AppImages.locatorImage, scale: 6.0),
+                Image.asset(
+                  AppImages.locatorImage,
+                  scale: 6.0,
+                ),
                 SizedBox(height: 8),
                 Text(
                   'locator',
                   style: AppFontStyles.headlineMedium(
-                    color: AppColors.kWhite,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w300,
-                  ),
+                      color: AppColors.kWhite,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w300),
                 ),
               ],
             ),

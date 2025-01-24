@@ -155,11 +155,22 @@ class _SettingScreenState extends State<SettingScreen> {
                           return BlocListener<LogoutBloc, LogoutState>(
                             listener: (context, state) {
                               if (state is LogoutLoading) {
-                                // Set the flag to true to show CircularProgressIndicator
-                                setState(() {
-                                  isLoggingOut = true;
-                                });
-                              } else if (state is LogoutSuccess) {
+                                // Show a loading indicator or perform any other action when loading
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false, // Prevent dismissing the dialog
+                                  builder: (context) =>   Image.asset(
+                                    "assets/images/Untitled design.gif",
+                                    height: 30.0,
+                                    width: 30.0,
+                                  ),
+                                  // builder: (context) => Center(
+                                  //   child: CircularProgressIndicator(
+                                  //     color: AppColors.kBlack,
+                                  //   ),
+                                  // ),
+                                );
+                              }  else if (state is LogoutSuccess) {
                                 // Reset the flag and navigate to login page
                                 setState(() {
                                   isLoggingOut = false;
