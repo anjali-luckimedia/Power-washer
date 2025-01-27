@@ -1,13 +1,13 @@
 class MyRequestModel {
-  String? message;
   String? status;
+  String? message;
   List<Data>? data;
 
-  MyRequestModel({this.message, this.status, this.data});
+  MyRequestModel({this.status, this.message, this.data});
 
   MyRequestModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
     status = json['status'];
+    message = json['message'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -18,8 +18,8 @@ class MyRequestModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
     data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,6 +28,8 @@ class MyRequestModel {
 }
 
 class Data {
+  String? bookingId;
+  String? serviceId;
   String? image;
   String? name;
   String? date;
@@ -36,7 +38,9 @@ class Data {
   String? status;
 
   Data(
-      {this.image,
+      {this.bookingId,
+        this.serviceId,
+        this.image,
         this.name,
         this.date,
         this.address,
@@ -44,6 +48,8 @@ class Data {
         this.status});
 
   Data.fromJson(Map<String, dynamic> json) {
+    bookingId = json['booking_id'];
+    serviceId = json['service_id'];
     image = json['image'];
     name = json['name'];
     date = json['date'];
@@ -54,6 +60,8 @@ class Data {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['booking_id'] = this.bookingId;
+    data['service_id'] = this.serviceId;
     data['image'] = this.image;
     data['name'] = this.name;
     data['date'] = this.date;

@@ -37,6 +37,8 @@ class _SettingScreenState extends State<SettingScreen> {
   bool isLoggingOut = false;
   String? deviceToken;
   late SharedPreferences preferences;
+  bool isLoading = false;
+
 
 
   @override
@@ -52,6 +54,20 @@ class _SettingScreenState extends State<SettingScreen> {
     });
     print(deviceToken);
   }
+
+  void _onLogout() {
+    setState(() {
+      isLoading = true;
+    });
+
+    // Simulate a logout process
+    Future.delayed(Duration(seconds: 2), () {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -64,256 +80,263 @@ class _SettingScreenState extends State<SettingScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-        child: Column(
+        child: Stack(
           children: [
-          /*  SizedBox(height: 50,),
-            Row(
+            Column(
               children: [
-                GestureDetector(
-                    onTap: () {
-                      //    _modalBottomSheetMenu();
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: AppColors.kBlack,
-                    )),
-                SizedBox(width: 120,),
-                Center(child: Text(AppString.settings.toUpperCase(),style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w800,fontSize: 18,color: AppColors.kBlack,))),
+              /*  SizedBox(height: 50,),
+                Row(
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          //    _modalBottomSheetMenu();
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: AppColors.kBlack,
+                        )),
+                    SizedBox(width: 120,),
+                    Center(child: Text(AppString.settings.toUpperCase(),style: AppFontStyles.headlineMedium(fontWeight: FontWeight.w800,fontSize: 18,color: AppColors.kBlack,))),
 
-              ],
-            ),*/
-            Divider(color: AppColors.kLightGrey,thickness: 1,),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 1;
-                      });
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()))
-                          .whenComplete(() => selectedIndex = 0);
-                    },
-                    child: _buildCard(
-                      image: selectedIndex == 1 ? AppImages.yellowNotification : AppImages.notification,
-                      label: 'NOTIFICATION',
-                      index: 1,
+                  ],
+                ),*/
+                Divider(color: AppColors.kLightGrey,thickness: 1,),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 1;
+                          });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationScreen()))
+                              .whenComplete(() => selectedIndex = 0);
+                        },
+                        child: _buildCard(
+                          image: selectedIndex == 1 ? AppImages.yellowNotification : AppImages.notification,
+                          label: 'NOTIFICATION',
+                          index: 1,
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                const SizedBox(width: 10), // Space between cards
-                Flexible(
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedIndex = 2;
-                      });
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()))
-                          .whenComplete(() => selectedIndex = 0);
-                    },
-                    child: _buildCard(
-                      image: selectedIndex == 2 ? AppImages.yellowChangePassword : AppImages.changePassword,
-                      label: 'CHANGE PASSWORD',
-                      index: 2,
+                    const SizedBox(width: 10), // Space between cards
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedIndex = 2;
+                          });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()))
+                              .whenComplete(() => selectedIndex = 0);
+                        },
+                        child: _buildCard(
+                          image: selectedIndex == 2 ? AppImages.yellowChangePassword : AppImages.changePassword,
+                          label: 'CHANGE PASSWORD',
+                          index: 2,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-              ],
-            ),
 
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: GestureDetector(
-                    onTap:(){
-                      setState(() {
-                        selectedIndex = 3;
-                      });
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(),));
-                  
-                    },
-                    child: _buildCard(
-                      image: selectedIndex == 3?AppImages.yellowMyRequest:AppImages.myRequest, label: 'MY REQUEST',index: 3
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10), // Space between cards
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Flexible(
+                      child: GestureDetector(
+                        onTap:(){
+                          setState(() {
+                            selectedIndex = 3;
+                          });
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyRequestScreen(),));
 
-                Flexible(
-                  child: GestureDetector(
-                    onTap:(){
-                      setState(() {
-                        selectedIndex = 4;
-                      });
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return BlocListener<LogoutBloc, LogoutState>(
-                            listener: (context, state) {
-                              if (state is LogoutLoading) {
-                                // Show a loading indicator or perform any other action when loading
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false, // Prevent dismissing the dialog
-                                  builder: (context) =>   Image.asset(
-                                    "assets/images/Untitled design.gif",
-                                    height: 30.0,
-                                    width: 30.0,
-                                  ),
-                                  // builder: (context) => Center(
-                                  //   child: CircularProgressIndicator(
-                                  //     color: AppColors.kBlack,
-                                  //   ),
-                                  // ),
-                                );
-                              }  else if (state is LogoutSuccess) {
-                                // Reset the flag and navigate to login page
-                                setState(() {
-                                  isLoggingOut = false;
-                                });
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const LoginScreen(),
-                                  ),
-                                );
-                              } else if (state is LogoutFailure) {
-                                // Reset the flag and show an error message
-                                setState(() {
-                                  isLoggingOut = false;
-                                });
-                                Navigator.of(context)
-                                    .pop(); // Close the current dialog
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(state.error),
-                                  ),
-                                );
-                              }
-                            },
-                            child: StatefulBuilder(
-                              builder: (context, setState) {
-                                return AlertDialog(
-                                  //backgroundColor: Colors.white,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(5.0)),
-                                  ),
-                                  insetPadding: const EdgeInsets.symmetric(
-                                      vertical: 24.0, horizontal: 15),
-                                  titlePadding: const EdgeInsets.only(
-                                      top: 25, left: 15, bottom: 12),
-                                  title: Text("LOGOUT",
-                                      style: AppFontStyles.headlineMedium(
-                                        fontSize: 22,
-                                        color:  AppColors.kBlack,
-                                        fontWeight: FontWeight.bold
-                                      )),
-                                  content: isLoggingOut
-                                      ? Center(
-                                      child: CircularProgressIndicator(
-                                        color: AppColors.kBlack,
-                                      ))
-                                      : Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 15, right: 15),
-                                        child: SizedBox(
-                                          width: 250,
-                                          child: Text(
-                                              "Do you want to logout?",
+                        },
+                        child: _buildCard(
+                          image: selectedIndex == 3?AppImages.yellowMyRequest:AppImages.myRequest, label: 'MY REQUEST',index: 3
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 10), // Space between cards
+
+                    Flexible(
+                      child: GestureDetector(
+                        onTap:(){
+                          setState(() {
+                            selectedIndex = 4;
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return BlocListener<LogoutBloc, LogoutState>(
+                                listener: (context, state) {
+                                  if (state is LogoutLoading) {
+
+                                  }
+
+                                  else if (state is LogoutSuccess) {
+                                    // Reset the flag and navigate to login page
+                                    setState(() {
+                                      isLoggingOut = false;
+                                    });
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const LoginScreen(),
+                                      ),
+                                    );
+                                  } else if (state is LogoutFailure) {
+                                    // Reset the flag and show an error message
+                                    setState(() {
+                                      isLoggingOut = false;
+                                    });
+                                    Navigator.of(context)
+                                        .pop(); // Close the current dialog
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(state.error),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return AlertDialog(
+                                      //backgroundColor: Colors.white,
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(5.0)),
+                                      ),
+                                      insetPadding: const EdgeInsets.symmetric(
+                                          vertical: 24.0, horizontal: 15),
+                                      titlePadding: const EdgeInsets.only(
+                                          top: 25, left: 15, bottom: 12),
+                                      title: Text("LOGOUT",
+                                          style: AppFontStyles.headlineMedium(
+                                            fontSize: 22,
+                                            color:  AppColors.kBlack,
+                                            fontWeight: FontWeight.bold
+                                          )),
+                                      content: isLoggingOut
+                                          ? Center(
+                                          child: CircularProgressIndicator(
+                                            color: AppColors.kBlack,
+                                          ))
+                                          : Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15, right: 15),
+                                            child: SizedBox(
+                                              width: 250,
+                                              child: Text(
+                                                  "Do you want to logout?",
+                                                  style: AppFontStyles.headlineMedium(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.w400,
+                                                    color:  AppColors.kBlack,
+                                                  )),
+                                            ),
+                                          ),
+                                          SizedBox(height: 10),
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                                left: 15, right: 15),
+                                            child: Divider(
+                                              color:  AppColors.kLightGrey,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      contentPadding:
+                                      const EdgeInsets.only(top: 8),
+                                      buttonPadding: EdgeInsets.zero,
+                                      actionsPadding:
+                                      const EdgeInsets.only(bottom: 10),
+                                      actions: isLoggingOut
+                                          ? []
+                                          : <Widget>[
+                                        TextButton(
+                                          onPressed: () async {
+                                            context.read<LogoutBloc>().add(
+                                              LogoutButtonPressed(
+                                                deviceToken:deviceToken.toString(),
+                                              ),
+                                            );
+                                          },
+                                          child: Text("YES",
                                               style: AppFontStyles.headlineMedium(
                                                 fontSize: 14,
-                                                fontWeight: FontWeight.w400,
                                                 color:  AppColors.kBlack,
                                               )),
                                         ),
-                                      ),
-                                      SizedBox(height: 10),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 15, right: 15),
-                                        child: Divider(
-                                          color:  AppColors.kLightGrey,
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("NO",
+                                              style: AppFontStyles.headlineMedium(
+                                                fontSize: 14,
+                                                color:  AppColors.kBlack,
+                                              )),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  contentPadding:
-                                  const EdgeInsets.only(top: 8),
-                                  buttonPadding: EdgeInsets.zero,
-                                  actionsPadding:
-                                  const EdgeInsets.only(bottom: 10),
-                                  actions: isLoggingOut
-                                      ? []
-                                      : <Widget>[
-                                    TextButton(
-                                      onPressed: () async {
-                                        context.read<LogoutBloc>().add(
-                                          LogoutButtonPressed(
-                                            deviceToken:deviceToken.toString(),
-                                          ),
-                                        );
-                                      },
-                                      child: Text("YES",
-                                          style: AppFontStyles.headlineMedium(
-                                            fontSize: 14,
-                                            color:  AppColors.kBlack,
-                                          )),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: Text("NO",
-                                          style: AppFontStyles.headlineMedium(
-                                            fontSize: 14,
-                                            color:  AppColors.kBlack,
-                                          )),
-                                    ),
-                                  ],
-                                  actionsAlignment:
-                                  MainAxisAlignment.spaceAround,
-                                );
-                              },
-                            ),
+                                      ],
+                                      actionsAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                    );
+                                  },
+                                ),
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    child: _buildCard(
-                      image:selectedIndex == 4?AppImages.yellowLogout:AppImages.logout, label: 'LOGOUT',index: 4
+                        child: _buildCard(
+                          image:selectedIndex == 4?AppImages.yellowLogout:AppImages.logout, label: 'LOGOUT',index: 4
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 20,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    GestureDetector(
+                      onTap:(){
+                        setState(() {
+                          selectedIndex = 5;
+                        });
+                        _showDeleteDialog(context);
+                      },
+                      child: _buildCard(
+                        image:selectedIndex == 5?AppImages.yellowDelete: AppImages.delete, label: 'DELETE ACCOUNT',index: 5
+
+                      ),
+                    ),
+
+                  ],
+                ),
+              ],
+            ),
+            // Loader
+            if (isLoading)
+              Positioned.fill(
+                child: Container(
+                  color: Colors.black.withOpacity(0.5),
+                  child: Center(
+                    child: Image.asset(
+                      "assets/images/loader.gif",
+                      height: 30.0,
+                      width: 30.0,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),
-              ],
-            ),
-            SizedBox(height: 20,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap:(){
-                    setState(() {
-                      selectedIndex = 5;
-                    });
-                    _showDeleteDialog(context);
-                  },
-                  child: _buildCard(
-                    image:selectedIndex == 5?AppImages.yellowDelete: AppImages.delete, label: 'DELETE ACCOUNT',index: 5
-
-                  ),
-                ),
-
-              ],
-            ),
+              ),
           ],
         ),
       ),

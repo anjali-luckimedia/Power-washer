@@ -13,10 +13,12 @@ class FetchServicePage extends ServicePageEvent {}
 
 class LoadServicePageData extends ServicePageEvent {
   /* String? userId;*/
+  String latitude;
+  String longitude;
 
-  LoadServicePageData(/*this.userId,*/ );
+  LoadServicePageData(/*this.userId,*/this.latitude,this.longitude);
 
   @override
-  List<Object> get props => [/*userId!*/];
+  List<Object> get props => [/*userId!*/latitude,longitude];
 }
 

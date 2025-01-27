@@ -16,7 +16,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     on<LoadReviewData>((event, emit) async {
       emit(ReviewLoading());
       try {
-        final reviewModel = await _apiService.fetchReviewData(/*userId: '1'*/);
+        final reviewModel = await _apiService.fetchReviewData(event.serviceId);
         emit(ReviewLoaded(reviewModel));
       } catch (error) {
         emit(ReviewError(error.toString()));

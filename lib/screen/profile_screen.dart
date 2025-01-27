@@ -42,13 +42,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   String name = '';
   String email = '';
-  String surname = '';
   String phone = '';
-  String address = '';
-  String dob = '';
-  String gender = '';
-  int? genderVal;
-  String passport = '';
   bool isDataLoading = false; // Add this state to track loading
 
   void clearControllers() {

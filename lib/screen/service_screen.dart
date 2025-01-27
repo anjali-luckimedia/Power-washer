@@ -13,6 +13,7 @@ import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_common/common_textformfield.dart';
 import 'package:power_washer/utils/app_images.dart';
 import 'package:power_washer/utils/app_string.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../blocs/service/service_data_state.dart';
 
@@ -29,9 +30,40 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
   double _currentDistance = 2; // Initial distance value
   int _selectedRating = 5; // Initial rating value
+  String latitude = '';
+  String longitude = '';
+  late SharedPreferences preferences;
+
+
+  @override
+  void initState() {
+    initPreference();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void initPreference() async {
+    preferences = await SharedPreferences.getInstance();
+
+    // Retrieve the values from SharedPreferences
+    final latValue = preferences.get(AppString.kPLatitude);
+    final longValue = preferences.get(AppString.kPLongitude);
+
+    // Safely cast or convert to String
+    latitude = latValue != null ? latValue.toString() : 'N/A';
+    longitude = longValue != null ? longValue.toString() : 'N/A';
+
+    // Print all the values
+    print('latitude: $latitude');
+    print('longitude: $longitude');
+
+    setState(() {});
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    context.read<ServicePageBloc>().add(LoadServicePageData());
+    context.read<ServicePageBloc>().add(LoadServicePageData(latitude,longitude));
     return  Scaffold(
       backgroundColor: AppColors.kWhite,
       bottomNavigationBar: BottomNavigation(currentIndex: 0),
@@ -92,27 +124,41 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           padding: const EdgeInsets.all(8.0),
                           child: GestureDetector(
                             onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceDetailsScreen(),));
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => ServiceDetailsScreen( serviceId: item.serviceId.toString(),),));
                             },
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 // Image Section
-                                ClipRRect(
-                                //  borderRadius: BorderRadius.circular(10),
-                                  child: Image.asset(
-                                    item.image!,
-                                    height: 83,
-                                    width: 124,
-                                    fit: BoxFit.cover,
+                                Container(
+                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),border: Border.all(color: AppColors.kRed)),
+                                  child: ClipRRect(
+                                     borderRadius: BorderRadius.circular(15),
+                                    child: Image.network(
+                                      item.image!,
+                                      height: 90,
+                                      width: 124,
+                                      fit: BoxFit.cover,
+                                        errorBuilder: (context, url, error) =>Image.asset('assets/images/mostBookesImage.png',height: 85,
+                                          width: 124,
+                                          fit: BoxFit.cover,)
+                                    ),
                                   ),
                                 ),
-                                SizedBox(width: 10),
+                                SizedBox(width: 8),
                                 // Details Section
                                 Expanded(
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
+                                      // Text(
+                                      //   item.serviceId.toString(),
+                                      //   style: AppFontStyles.headlineMedium(
+                                      //       fontSize: 12,
+                                      //       fontWeight: FontWeight.bold,
+                                      //       color: AppColors.kBlack
+                                      //   ),
+                                      // ),
                                       // Title
                                       Text(
                                         item.name.toString(),
@@ -148,7 +194,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                       // Service Description
                                       Row(
                                         children: [
-                                         SvgPicture.asset(AppImages.category,height: 15,),
+                                         SvgPicture.asset(AppImages.category,height: 13,),
                                           SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
@@ -168,20 +214,25 @@ class _ServiceScreenState extends State<ServiceScreen> {
                                         children: [
                                           Icon(Icons.star, size: 14, color: AppColors.kYellow),
                                           Text(
-                                            ' ${item.rating} ${item.reviews}',
+                                            ' ${item.rating.toString()}.0 (${item.reviews})',
                                             style: AppFontStyles.headlineMedium(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w400,
                                                 color: AppColors.kBlack
                                             ),
                                           ),
-                                          SizedBox(width: 10),
-                                          Text(
-                                            '${item.yearsOfExperience}',
-                                            style: AppFontStyles.headlineMedium(
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w400,
-                                                color: AppColors.kGrey
+                                          SizedBox(width: 5),
+                                          Expanded(
+                                            child: Text(
+                                              '${item.yearsOfExperience}',
+                                             // maxLines: 1,
+                                              style: AppFontStyles.headlineMedium(
+                                                  fontSize: 9,
+                                                  fontWeight: FontWeight.w400,
+                                                  color: AppColors.kGrey,
+
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                           ),
                                         ],

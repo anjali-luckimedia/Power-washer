@@ -14,7 +14,9 @@ class ServiceDetailsBloc extends Bloc<ServiceDetailsEvent, ServiceDetailsState> 
     on<LoadServiceDetailsData>((event, emit) async {
       emit(ServiceDetailsLoading());
       try {
-        final serviceDetailsModel = await _apiService.fetchServiceDetailsData(/*userId: '1'*/);
+        final serviceDetailsModel = await _apiService.fetchServiceDetailsData(
+            /*userId: '1'*/
+            event.serviceId,event.latitude,event.longitude);
         emit(ServiceDetailsLoaded(serviceDetailsModel));
       } catch (error) {
         emit(ServiceDetailsError(error.toString()));

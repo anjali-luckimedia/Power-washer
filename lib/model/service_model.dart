@@ -1,13 +1,13 @@
 class ServiceModel {
-  String? message;
   String? status;
+  String? message;
   List<Data>? data;
 
-  ServiceModel({this.message, this.status, this.data});
+  ServiceModel({this.status, this.message, this.data});
 
   ServiceModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
     status = json['status'];
+    message = json['message'];
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
@@ -18,8 +18,8 @@ class ServiceModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
     data['status'] = this.status;
+    data['message'] = this.message;
     if (this.data != null) {
       data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
@@ -28,26 +28,33 @@ class ServiceModel {
 }
 
 class Data {
+  String? serviceId;
   String? image;
   String? name;
   String? address;
   String? services;
-  double? rating;
+  dynamic? rating;
   int? reviews;
   String? yearsOfExperience;
   String? distance;
+  String? latitude;
+  String? longitude;
 
   Data(
-      {this.image,
+      {this.serviceId,
+        this.image,
         this.name,
         this.address,
         this.services,
         this.rating,
         this.reviews,
         this.yearsOfExperience,
-        this.distance});
+        this.distance,
+        this.latitude,
+        this.longitude});
 
   Data.fromJson(Map<String, dynamic> json) {
+    serviceId = json['service_id'];
     image = json['image'];
     name = json['name'];
     address = json['address'];
@@ -56,10 +63,13 @@ class Data {
     reviews = json['reviews'];
     yearsOfExperience = json['years_of_experience'];
     distance = json['distance'];
+    latitude = json['latitude'];
+    longitude = json['longitude'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['service_id'] = this.serviceId;
     data['image'] = this.image;
     data['name'] = this.name;
     data['address'] = this.address;
@@ -68,6 +78,8 @@ class Data {
     data['reviews'] = this.reviews;
     data['years_of_experience'] = this.yearsOfExperience;
     data['distance'] = this.distance;
+    data['latitude'] = this.latitude;
+    data['longitude'] = this.longitude;
     return data;
   }
 }

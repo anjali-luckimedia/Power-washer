@@ -90,13 +90,20 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               // Image Section
-                              ClipRRect(
-                                //  borderRadius: BorderRadius.circular(10),
-                                child: Image.asset(
-                                  item.image!,
-                                  height: 83,
-                                  width: 124,
-                                  fit: BoxFit.cover,
+                              Container(
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(15),border: Border.all(color: AppColors.kRed)),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(15),
+                                  //  borderRadius: BorderRadius.circular(10),
+                                  child: Image.network(
+                                    item.image!,
+                                    height: 95,
+                                    width: 124,
+                                    fit: BoxFit.cover,
+                                      errorBuilder: (context, url, error) =>Image.asset('assets/images/mostBookesImage.png',height: 85,
+                                        width: 124,
+                                        fit: BoxFit.cover,)
+                                  ),
                                 ),
                               ),
                               SizedBox(width: 10),
@@ -222,7 +229,7 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
   }
   Color _getStatusColor(String status) {
     switch (status) {
-      case 'Approve':
+      case 'Approved':
         return AppColors.kGreen; // Green for approved
       case 'Pending':
         return AppColors.kYellow; // Orange for pending
@@ -234,14 +241,14 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
   }
   Color _getTextColor(String status) {
     switch (status) {
-      case 'Approve':
+      case 'Approved':
         return AppColors.kWhite; // Green for approved
       case 'Pending':
         return AppColors.kBlack; // Orange for pending
       case 'Rejected':
         return AppColors.kWhite; // Red for rejected
       default:
-        return Colors.grey; // Default color for unknown status
+        return AppColors.kWhite; // Default color for unknown status
     }
   }
 }

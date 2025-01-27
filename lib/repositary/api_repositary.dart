@@ -14,9 +14,8 @@ import '../model/my_request_model.dart';
 import '../model/service_details_model.dart';
 import '../utils/app_string.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
+import 'dart:developer' as dev;
 
-import 'package:mime/mime.dart';
 class ApiService {
   late SharedPreferences preferences;
 
@@ -27,33 +26,131 @@ class ApiService {
     return HomeDataModel.fromJson(map);
   }
 
-  Future<ServiceModel> fetchServiceData() async {
-    final response =
-        await rootBundle.loadString('assets/json/service_data.json');
-    final map = json.decode(response);
-    print(jsonEncode(map)); // Convert the map to a JSON string for logging
-    return ServiceModel.fromJson(map);
+
+
+  Future<ServiceModel> fetchServiceData(String? lat, String? long) async {
+    preferences = await SharedPreferences.getInstance();
+    String? userId = preferences.getString(AppString.kPrefUserIdKey);
+    String? token = preferences.getString(AppString.kPrefToken);
+
+    print('userId: $userId');
+    print('Bearer: $token');
+    final bodyData = {
+      'user_id': userId,
+      'latitude': lat,
+      'longitude': long,
+    };
+    try {
+      final Uri uri = Uri.parse('${AppString.kBaseUrl}services/index');
+      final response = await http.post(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        body: bodyData
+      );
+      print('Body Data: $bodyData');
+      if (response.statusCode == 200 || response.statusCode == 404) {
+        // Parse the JSON response
+        final responseJson = jsonDecode(response.body);
+
+        dev.log(responseJson.toString());
+        return ServiceModel.fromJson(responseJson);
+      } else {
+        print('Failed to load home page data with status code: ${response.statusCode}');
+        dev.log('Response body: ${response.body}');
+        throw Exception('Failed to load user feedback data');
+      }
+    } catch (error) {
+      print('Error: $error');
+      throw error;
+    }
   }
-  Future<ServiceDetailsModel> fetchServiceDetailsData() async {
-    final response =
-    await rootBundle.loadString('assets/json/service_details.json');
-    final map = json.decode(response);
-    print(jsonEncode(map)); // Convert the map to a JSON string for logging
-    return ServiceDetailsModel.fromJson(map);
-  }
+
+
   Future<MyRequestModel> fetchMyRequestData() async {
-    final response = await rootBundle.loadString('assets/json/my_request.json');
-    final map = json.decode(response);
-    print(jsonEncode(map)); // Convert the map to a JSON string for logging
-    return MyRequestModel.fromJson(map);
+    preferences = await SharedPreferences.getInstance();
+    String? userId = preferences.getString(AppString.kPrefUserIdKey);
+    String? token = preferences.getString(AppString.kPrefToken);
+
+    print('userId: $userId');
+    print('Bearer: $token');
+
+    try {
+      final Uri uri = Uri.parse('${AppString.kBaseUrl}booking/index');
+      final response = await http.post(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          'user_id': userId,
+        },
+      );
+
+      if (response.statusCode == 200 || response.statusCode == 404) {
+        // Parse the JSON response
+        final responseJson = jsonDecode(response.body);
+
+        dev.log(responseJson.toString());
+        return MyRequestModel.fromJson(responseJson);
+      } else {
+        print('Failed to load home page data with status code: ${response.statusCode}');
+        dev.log('Response body: ${response.body}');
+        throw Exception('Failed to load user feedback data');
+      }
+    } catch (error) {
+      print('Error: $error');
+      throw error;
+    }
   }
-  //
-  // Future<UserProfileModel> fetchUserData() async {
-  //   final response = await rootBundle.loadString('assets/json/profile.json');
-  //   final map = json.decode(response);
-  //   print(jsonEncode(map)); // Convert the map to a JSON string for logging
-  //   return UserProfileModel.fromJson(map);
-  // }
+
+
+  Future<ServiceDetailsModel> fetchServiceDetailsData(String? serviceId,String? lat, String? long) async {
+    preferences = await SharedPreferences.getInstance();
+    String? userId = preferences.getString(AppString.kPrefUserIdKey);
+    String? token = preferences.getString(AppString.kPrefToken);
+    final latValue = preferences.get(AppString.kPLatitude);
+    final longValue = preferences.get(AppString.kPLongitude);
+    print('userId: $userId');
+    print('Bearer: $token');
+    final bodyData = {
+      'user_id': userId,
+      'service_id': serviceId,
+      'latitude': latValue.toString(),
+      'longitude': longValue.toString(),
+    };
+    try {
+      final Uri uri = Uri.parse('${AppString.kBaseUrl}services/details');
+      final response = await http.post(
+        uri,
+        headers: {
+          'Authorization': 'Bearer $token',
+        },
+        body: bodyData
+      );
+
+      print('Body Data: $bodyData');
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final responseJson = jsonDecode(response.body);
+
+        dev.log(responseJson.toString());
+        return ServiceDetailsModel.fromJson(responseJson);
+      } else {
+        print('Failed to load service details page data with status code: ${response.statusCode}');
+        dev.log('Response body: ${response.body}');
+        throw Exception('Failed to load service details data');
+      }
+    } catch (error) {
+      print('Error: $error');
+      throw error;
+    }
+  }
+
+
+
 
   Future<UserProfileModel> fetchUserData() async {
     preferences = await SharedPreferences.getInstance();
@@ -89,13 +186,49 @@ class ApiService {
       throw error;
     }
   }
-  Future<ReviewModel> fetchReviewData() async {
-    final response =
-    await rootBundle.loadString('assets/json/review_data.json');
-    final map = json.decode(response);
-    print(jsonEncode(map)); // Convert the map to a JSON string for logging
-    return ReviewModel.fromJson(map);
+
+
+  Future<ReviewModel> fetchReviewData(String? serviceId) async {
+    preferences = await SharedPreferences.getInstance();
+    String? userId = preferences.getString(AppString.kPrefUserIdKey);
+    String? token = preferences.getString(AppString.kPrefToken);
+    final latValue = preferences.get(AppString.kPLatitude);
+    final longValue = preferences.get(AppString.kPLongitude);
+    print('userId: $userId');
+    print('Bearer: $token');
+    final bodyData = {
+      'user_id': userId,
+      'service_id': serviceId,
+    };
+    try {
+      final Uri uri = Uri.parse('${AppString.kBaseUrl}reviews/index');
+      final response = await http.post(
+          uri,
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+          body: bodyData
+      );
+
+      print('Body Data: $bodyData');
+
+      if (response.statusCode == 200) {
+        // Parse the JSON response
+        final responseJson = jsonDecode(response.body);
+
+        dev.log(responseJson.toString());
+        return ReviewModel.fromJson(responseJson);
+      } else {
+        print('Failed to load service details page data with status code: ${response.statusCode}');
+        dev.log('Response body: ${response.body}');
+        throw Exception('Failed to load service details data');
+      }
+    } catch (error) {
+      print('Error: $error');
+      throw error;
+    }
   }
+
 
   Future<SearchModel> search(String query) async {
     final response =

@@ -74,6 +74,8 @@ class AppString{
    static const String kPDob = 'dob';
    static const String kPGender = 'gender';
    static const String kPPassport = 'passport';
+   static const String kPLatitude = 'latitude';
+   static const String kPLongitude = 'longitude';
 }
 
 

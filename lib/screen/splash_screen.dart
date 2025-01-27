@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
     print('isLoggedIn: $isLoggedIn'); // Debug statement
   }
 
-  Future<void> determinePosition() async {
+  /*Future<void> determinePosition() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -79,8 +79,43 @@ class _SplashScreenState extends State<SplashScreen> {
     print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
 
     // Save the latitude and longitude to SharedPreferences
-    await prefs.setDouble('latitude', position.latitude);
-    await prefs.setDouble('longitude', position.longitude);
+    await prefs.setDouble(AppString.kPLatitude, position.latitude);
+    await prefs.setDouble(AppString.kPLongitude, position.longitude);
+  }*/
+  Future<void> determinePosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      // If location services are disabled, return or prompt the user to enable it
+      print('Location services are disabled.');
+      Geolocator.openLocationSettings(); // Opens location settings for the user
+      return;
+    }
+
+    // Check and request permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        print('Location permissions are denied');
+        return;
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      print(
+          'Location permissions are permanently denied, cannot request permissions.');
+      return;
+    }
+
+    // If permissions are granted, fetch the location
+    Position position = await Geolocator.getCurrentPosition();
+    print('Latitude: ${position.latitude}, Longitude: ${position.longitude}');
+    await prefs.setDouble(AppString.kPLatitude, position.latitude);
+    await prefs.setDouble(AppString.kPLongitude, position.longitude);
   }
 
   void navigateToScreen() {

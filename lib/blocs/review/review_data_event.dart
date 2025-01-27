@@ -12,11 +12,11 @@ class FetchReview extends ReviewEvent {}
 
 
 class LoadReviewData extends ReviewEvent {
-  /* String? userId;*/
+   String? serviceId;
 
-  LoadReviewData(/*this.userId,*/ );
+  LoadReviewData(this.serviceId, );
 
   @override
-  List<Object> get props => [/*userId!*/];
+  List<Object> get props => [serviceId!];
 }
 

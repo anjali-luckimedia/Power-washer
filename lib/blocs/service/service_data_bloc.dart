@@ -14,7 +14,7 @@ class ServicePageBloc extends Bloc<ServicePageEvent, ServicePageState> {
     on<LoadServicePageData>((event, emit) async {
       emit(ServicePageLoading());
       try {
-        final notificationDataModel = await _apiService.fetchServiceData(/*userId: '1'*/);
+        final notificationDataModel = await _apiService.fetchServiceData(/*userId: '1'*/event.latitude,event.longitude);
         emit(ServicePageLoaded(notificationDataModel));
       } catch (error) {
         emit(ServicePageError(error.toString()));

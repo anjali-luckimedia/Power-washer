@@ -1,84 +1,73 @@
-
 class ReviewModel {
-  String? message;
   String? status;
-  Data? data;
+  String? message;
+  List<Data>? data;
 
-  ReviewModel({this.message, this.status, this.data});
+  ReviewModel({this.status, this.message, this.data});
 
   ReviewModel.fromJson(Map<String, dynamic> json) {
-    message = json['message'];
     status = json['status'];
-    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['message'] = this.message;
-    data['status'] = this.status;
-    if (this.data != null) {
-      data['data'] = this.data!.toJson();
-    }
-    return data;
-  }
-}
-
-class Data {
-  List<Reviews>? reviews;
-
-  Data({this.reviews});
-
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['reviews'] != null) {
-      reviews = <Reviews>[];
-      json['reviews'].forEach((v) {
-        reviews!.add(new Reviews.fromJson(v));
+    message = json['message'];
+    if (json['data'] != null) {
+      data = <Data>[];
+      json['data'].forEach((v) {
+        data!.add(new Data.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.reviews != null) {
-      data['reviews'] = this.reviews!.map((v) => v.toJson()).toList();
+    data['status'] = this.status;
+    data['message'] = this.message;
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Reviews {
+class Data {
+  String? reviewId;
   String? name;
   String? profileImage;
   String? timestamp;
-  double? rating;
+  int? rating;
   List<String>? categories;
   String? reviewText;
+  String? replyText;
 
-  Reviews(
-      {this.name,
+  Data(
+      {this.reviewId,
+        this.name,
         this.profileImage,
         this.timestamp,
         this.rating,
         this.categories,
-        this.reviewText});
+        this.reviewText,
+        this.replyText});
 
-  Reviews.fromJson(Map<String, dynamic> json) {
+  Data.fromJson(Map<String, dynamic> json) {
+    reviewId = json['review_id'];
     name = json['name'];
     profileImage = json['profileImage'];
     timestamp = json['timestamp'];
     rating = json['rating'];
     categories = json['categories'].cast<String>();
     reviewText = json['reviewText'];
+    replyText = json['replyText'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['review_id'] = this.reviewId;
     data['name'] = this.name;
     data['profileImage'] = this.profileImage;
     data['timestamp'] = this.timestamp;
     data['rating'] = this.rating;
     data['categories'] = this.categories;
     data['reviewText'] = this.reviewText;
+    data['replyText'] = this.replyText;
     return data;
   }
 }
