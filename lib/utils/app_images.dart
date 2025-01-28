@@ -37,7 +37,14 @@ class AppImages{
   static String dummyImage = 'assets/images/dummy.png';
   static String yearImage = 'assets/images/year.svg';
   static String editImage = 'assets/images/edit.svg';
+  static String noDataImage = 'assets/images/no_data.svg';
+  static String serviceImage = 'assets/images/service.svg';
+  static String mapImage = 'assets/images/map.svg';
+  static String whiteServiceImage = 'assets/images/whiteService.svg';
+  static String whiteMapImage = 'assets/images/whiteMap.svg';
+
 }
+
 
 
 

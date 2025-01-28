@@ -13,7 +13,7 @@ class HomePageBloc extends Bloc<HomePageEvent, HomePageState> {
     on<LoadHomePageData>((event, emit) async {
       emit(HomePageLoading());
       try {
-        final notificationDataModel = await _apiService.fetchHomePageData(/*userId: '1'*/);
+        final notificationDataModel = await _apiService.fetchHomePageData(/*userId: '1'*/event.latitude,event.longitude);
         emit(HomePageLoaded(notificationDataModel));
       } catch (error) {
         emit(HomePageError(error.toString()));

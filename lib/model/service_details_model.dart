@@ -266,8 +266,10 @@ class Data {
 class ImageSection {
   Gallery? image;
   List<Gallery>? gallery;
+  int? count;
 
-  ImageSection({this.image, this.gallery});
+
+  ImageSection({this.image, this.gallery,this.count});
 
   ImageSection.fromJson(Map<String, dynamic> json) {
     image = json['image'] != null ? new Gallery.fromJson(json['image']) : null;
@@ -277,6 +279,8 @@ class ImageSection {
         gallery!.add(new Gallery.fromJson(v));
       });
     }
+    count = json['count'];
+
   }
 
   Map<String, dynamic> toJson() {
@@ -287,6 +291,8 @@ class ImageSection {
     if (this.gallery != null) {
       data['gallery'] = this.gallery!.map((v) => v.toJson()).toList();
     }
+    data['count'] = this.count;
+
     return data;
   }
 }

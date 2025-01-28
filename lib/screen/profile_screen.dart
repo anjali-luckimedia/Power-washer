@@ -17,6 +17,7 @@ import 'package:power_washer/utils/app_string.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../blocs/user_edit_profile/user_edit_profile_event.dart';
 
@@ -107,7 +108,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: BlocBuilder<UserProfileBLoc, UserProfileState>(
         builder: (context, state) {
           if (state is UserProfileLoading) {
-            return Center(child: CircularProgressIndicator(color: AppColors.kBlack,));
+            return _buildShimmerEffect();
+           // return Center(child: CircularProgressIndicator(color: AppColors.kBlack,));
           } else if (state is UserProfileLoaded) {
             final userData = state.userProfileModel;
 
@@ -156,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ? (userData.data!.profileImage?.isEmpty ?? true
                                   ?
                               ClipOval(
-                                child: Image.network(
+                                child: Image.asset(
                                   AppImages.dummyImage,
                                   fit: BoxFit.cover,
                                   width: 120, // Ensures the image fully fits inside the container
@@ -453,6 +455,74 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _buildShimmerEffect() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(100),
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: 150,
+              height: 20,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(5),
+              ),
+            ),
+            SizedBox(height: 30),
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              height: 60,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            SizedBox(height: 50),
+            Center(
+              child: Container(
+                width: 200,
+                height: 60,
+                decoration: BoxDecoration(
+                  color: Colors.grey[300],
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   void _showPicker(context) {
     showModalBottomSheet(

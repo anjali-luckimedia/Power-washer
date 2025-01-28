@@ -40,8 +40,11 @@ class AppString{
    static String confirmPassword = 'Confirm password';
    static String submit = 'Submit';
    static String request = 'Request';
+   static String kContinue = 'Continue';
    static String reviews = 'Reviews';
    static String addReview = 'Add Review';
+   static String noData = 'No Data Available';
+   static String noData1 = 'There is no data to show you\n               right now.';
 
 
    //API status

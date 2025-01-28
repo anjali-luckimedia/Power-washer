@@ -26,6 +26,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
   List<String> serviceList =['Mobile Car','Residential','Commercial'];
   List<String> serviceListImage =['assets/images/carWashing.png','assets/images/carWashing.png','assets/images/carWashing.png'];
   TextEditingController reviewController = TextEditingController();
+  final ValueNotifier<bool> isAddReviewLoader = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +35,73 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
     return BlocConsumer<AddReviewBloc, AddReviewState>(
       listener: (context, state) {
         if (state is AddReviewLoading) {
+          isAddReviewLoader.value = true; // Update the ValueNotifier
           // Show a loading indicator
+          // showDialog(
+          //   context: context,
+          //   builder: (_) => Center(child: CircularProgressIndicator()),
+          //   barrierDismissible: false,
+          // );
+        } else if (state is AddReviewSuccess) {
+          isAddReviewLoader.value = false; // Update the ValueNotifier
           showDialog(
             context: context,
-            builder: (_) => Center(child: CircularProgressIndicator()),
             barrierDismissible: false,
+            // Prevents closing on tap outside the dialog
+            builder: (BuildContext context) {
+              return Dialog(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.0),
+                ),
+                child: Container(
+                  padding: EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Spacer(),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop(); // Close the dialog
+                              Navigator.of(context).pop(); // Close the dialog
+                              Navigator.of(context).pop(); // Close the dialog
+                            },
+                            icon: Icon(Icons.close,color: AppColors.kBlack,),
+                          ),
+                        ],
+                      ),
+                      Icon(Icons.check_circle_outline,
+                          color: AppColors.kGreen, size: 48.0),
+                      SizedBox(height: 16.0),
+                      Text(
+                        'Thank you!',
+                        style: AppFontStyles.headlineMedium(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: 8.0),
+                      Text('Your reviews has been added\n              successfully.', style: AppFontStyles.headlineMedium(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.w400,
+                      ),),
+                      SizedBox(height: 16.0),
+
+                    ],
+                  ),
+                ),
+              );
+            },
           );
-        } else if (state is AddReviewSuccess) {
-          Navigator.pop(context); // Close the dialog
-          Navigator.pop(context); // Close the dialog
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Review added successfully!')),
-          );
+          // Navigator.pop(context); // Close the dialog
+          // Navigator.pop(context); // Close the dialog
+          // Navigator.pop(context); // Close the dialog
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(content: Text('Review added successfully!')),
+          // );
         } else if (state is AddReviewFailure) {
+          isAddReviewLoader.value = false; // Update the ValueNotifier
           Navigator.pop(context); // Close the loading indicator
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.error)),
@@ -300,52 +355,70 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
                             borderRadius: BorderRadius.circular(
                                 10.0), // Match button's border radius
                           ),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              final serviceId = widget.serviceDetailsModel?.data!.serviceDetails!.id.toString() ?? '';
-                              final categories = selectedIndex;
-                              final ratings = '3'; // Use the value from your `RatingBar`
-                              final message = reviewController.text;
+                          child: ValueListenableBuilder<bool>(
+                            valueListenable: isAddReviewLoader,
+                            builder: (context, isLoading, child) {
+                              return ElevatedButton(
+                                onPressed: isLoading
+                                    ? null // Disable the button while loading
+                                    : () {
+                                  final serviceId = widget.serviceDetailsModel
+                                          ?.data!.serviceDetails!.id
+                                          .toString() ??
+                                      '';
+                                  final categories = selectedIndex;
+                                  final ratings =
+                                      '3'; // Use the value from your `RatingBar`
+                                  final message = reviewController.text;
 
-                              if (serviceId.isEmpty || message.isEmpty || categories.isEmpty) {
-                                // Show an error if required fields are empty
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Please fill in all required fields.')),
-                                );
-                                return;
-                              }
+                                  if (serviceId.isEmpty ||
+                                      message.isEmpty ||
+                                      categories.isEmpty) {
+                                    // Show an error if required fields are empty
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text(
+                                              'Please fill in all required fields.')),
+                                    );
+                                    return;
+                                  }
 
-                              // Dispatch the AddReviewButtonPressed event
-                              context.read<AddReviewBloc>().add(
-                                AddReviewButtonPressed(
-                                  serviceId: serviceId,
-                                  categories: categories,
-                                  ratings: ratings,
-                                  message: message,
+                                  // Dispatch the AddReviewButtonPressed event
+                                  context.read<AddReviewBloc>().add(
+                                        AddReviewButtonPressed(
+                                          serviceId: serviceId,
+                                          categories: categories,
+                                          ratings: ratings,
+                                          message: message,
+                                        ),
+                                      );
+                                  // Action for booking
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  // Set transparent as the background
+                                  shadowColor: Colors.transparent,
+                                  // Remove default button shadow
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 60.0, vertical: 12.0),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        10.0), // Match border radius
+                                  ),
+                                ),
+                                child: isLoading
+                                    ? CircularProgressIndicator(
+                                    color: AppColors.kWhite)
+                                    :Text(
+                                  AppString.submit.toUpperCase(),
+                                  style: AppFontStyles.headlineMedium(
+                                    color: AppColors.kWhite,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               );
-                              // Action for booking
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              // Set transparent as the background
-                              shadowColor: Colors.transparent,
-                              // Remove default button shadow
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 60.0, vertical: 12.0),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10.0), // Match border radius
-                              ),
-                            ),
-                            child: Text(
-                              AppString.submit.toUpperCase(),
-                              style: AppFontStyles.headlineMedium(
-                                color: AppColors.kWhite,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
                           ),
                         ),
                       ),
@@ -401,7 +474,7 @@ class _AddReviewDialogState extends State<AddReviewDialog> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: SvgPicture.asset(iconPath, width: 30, height: 30)),
+              Center(child: SvgPicture.network(iconPath, width: 30, height: 30)),
               SizedBox(height: 8),
               Text(
                 textAlign: TextAlign.center,

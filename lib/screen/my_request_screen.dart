@@ -11,7 +11,9 @@ import 'package:power_washer/utils/app_common/Bottom_navigation.dart';
 import 'package:power_washer/utils/app_common/app_common_appbar.dart';
 import 'package:power_washer/utils/app_common/app_font_styles.dart';
 import 'package:power_washer/utils/app_string.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../utils/app_common/app_common_widget.dart';
 import '../utils/app_images.dart';
 
 class MyRequestScreen extends StatefulWidget {
@@ -76,9 +78,90 @@ class _MyRequestScreenState extends State<MyRequestScreen> {
               child: BlocBuilder<MyRequestPageBloc, MyRequestPageState>(
                 builder: (context, state) {
                   if (state is MyRequestPageLoading) {
-                    return Center(child: CircularProgressIndicator());
-                  } else if (state is MyRequestPageLoaded) {
                     return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: 8,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.grey.shade300,
+                              highlightColor: Colors.grey.shade100,
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  // Image skeleton
+                                  Container(
+                                    height: 90,
+                                    width: 124,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade300,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  // Details skeleton
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          height: 12,
+                                          width: 150,
+                                          color: Colors.grey.shade300,
+                                        ),
+                                        SizedBox(height: 8),
+                                        Container(
+                                          height: 10,
+                                          width: 200,
+                                          color: Colors.grey.shade300,
+                                        ),
+                                        SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 14,
+                                              width: 14,
+                                              color: Colors.grey.shade300,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Expanded(
+                                              child: Container(
+                                                height: 10,
+                                                color: Colors.grey.shade300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(height: 8),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height: 14,
+                                              width: 14,
+                                              color: Colors.grey.shade300,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Expanded(
+                                              child: Container(
+                                                height: 10,
+                                                color: Colors.grey.shade300,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+                    );
+                    // return Center(child: CircularProgressIndicator());
+                  } else if (state is MyRequestPageLoaded) {
+                    return state.myRequestModel.data!.isEmpty?CommonWidget().commonNoData(context):ListView.builder(
                       padding: EdgeInsets.zero,
                       itemCount: state.myRequestModel.data!.length,
                       itemBuilder: (context, index) {

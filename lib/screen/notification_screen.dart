@@ -54,9 +54,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     itemBuilder: (context, index) {
                       return SwipeActionCell(
                         backgroundColor: AppColors.kWhite,
-                        key: ValueKey(notification.data![index].title),
+                        key: ValueKey(notification.data![index].notificationTitle),
                        // key: ObjectKey(list[index]), /// this key is necessary
                         trailingActions: <SwipeAction>[
+
+
+
+
                           SwipeAction(
                               //title: "delete",
                               icon: SvgPicture.asset(AppImages.delete,color: AppColors.kWhite,),
@@ -87,7 +91,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       padding:
                                       const EdgeInsets.only(top: 8.0),
                                       child: Text(
-                                        notification.data![index].date
+                                        notification.data![index].timestamp
                                             .toString(),
 
                                         style:
@@ -119,6 +123,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         ),
                                         padding: EdgeInsets.all(2),
                                         child: Container(
+                                          width: 50,
+                                          height: 50,
                                           decoration: BoxDecoration(
                                             gradient: LinearGradient(
                                               colors: [AppColors.kWhite, AppColors.kWhite],
@@ -127,8 +133,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                             ),
                                             borderRadius: const BorderRadius.all(Radius.circular(100.0)),
                                           ),
-                                          child: Image.asset( notification.data![index].image
-                                              .toString(),),
+                                          child: ClipRRect(
+                                            borderRadius: const BorderRadius.all(Radius.circular(100.0)),
+                                            child: Image.network( notification.data![index].image
+                                                .toString(),fit: BoxFit.cover,),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -141,7 +150,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              notification.data![index].title.toString(),
+                                              notification.data![index].notificationTitle.toString(),
                                               style: AppFontStyles.headlineMedium(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.bold,
@@ -153,7 +162,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                             Padding(
                                               padding: const EdgeInsets.only(top: 5.0),
                                               child: Text(
-                                                notification.data![index].message.toString(),
+                                                notification.data![index].notificationText.toString(),
                                                 style: AppFontStyles.headlineMedium(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,

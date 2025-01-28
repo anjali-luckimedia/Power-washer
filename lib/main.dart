@@ -7,9 +7,11 @@ import 'package:power_washer/blocs/add_booking/add_booking_bloc.dart';
 import 'package:power_washer/blocs/add_review/add_review_bloc.dart';
 import 'package:power_washer/blocs/change_password/change_password_bloc.dart';
 import 'package:power_washer/blocs/delete_account/delete_account_bloc.dart';
+import 'package:power_washer/blocs/gallery/gallery_data_bloc.dart';
 import 'package:power_washer/blocs/home_data/home_data_bloc.dart';
 import 'package:power_washer/blocs/login/login_bloc.dart';
 import 'package:power_washer/blocs/notification/notification_bloc.dart';
+import 'package:power_washer/blocs/remove_notification/remove_notification_bloc.dart';
 import 'package:power_washer/blocs/search/search_bloc.dart';
 import 'package:power_washer/blocs/service/service_data_bloc.dart';
 import 'package:power_washer/blocs/service_details/service_details_bloc.dart';
@@ -74,6 +76,9 @@ Future<void> main() async {
         create: (context) => AddBookingBloc()
     ),
     BlocProvider(
+        create: (context) => RemoveNotificationBloc()
+    ),
+    BlocProvider(
         create: (context) => ChangePasswordBloc(apiRepository: apiService)
     ),
     BlocProvider(
@@ -83,7 +88,7 @@ Future<void> main() async {
       create: (context) => HomePageBloc(apiService),
     ),
     BlocProvider(
-      create: (context) => SearchBloc(apiService),
+      create: (context) => SearchBloc(),
     ),
     BlocProvider(
       create: (context) => ServicePageBloc(apiService),
@@ -100,6 +105,10 @@ Future<void> main() async {
     BlocProvider(
       create: (context) => ReviewBloc(apiService),
     ),
+    BlocProvider(
+      create: (context) => GalleryBloc(apiService),
+    ),
+
     BlocProvider(
       create: (context) => NotificationBLoc(apiService),
     ),

@@ -13,10 +13,11 @@ class FetchHomePage extends HomePageEvent {}
 
 class LoadHomePageData extends HomePageEvent {
   /* String? userId;*/
-
-  LoadHomePageData(/*this.userId,*/ );
+  String latitude;
+  String longitude;
+  LoadHomePageData(/*this.userId,*/this.latitude,this.longitude);
 
   @override
-  List<Object> get props => [/*userId!*/];
+  List<Object> get props => [/*userId!*/latitude,longitude];
 }
 
